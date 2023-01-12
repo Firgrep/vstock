@@ -1,0 +1,23 @@
+{% extends "visualizer/layout.html" %}
+{% block title %}
+About
+{% endblock %}
+{% block content %}
+
+<div class="container text-center error-content">
+  <div class="container-bg" style="padding: 15px;">
+    <h3>About</h3>
+    <p>Thank you for visiting vStock. This is a simple stock viewing app that's geared towards giving a strategic glance of a company's fundamentals.</p>
+    <p>If you come across any bugs or would like to make suggestions, you can find me on <a href="https://github.com/Firgrep/" target="_blank">github</a> or <a href="https://www.linkedin.com/in/filip-niklas-58a599243/" target="_blank">linkedin</a>.</p>
+    <p>Some of the tickers currently in database.</p>
+    <div class="d-flex">
+      <dl class="mx-auto justify-content-center">
+      {% for symbol in symbol_list|slice:":15" %}
+        <dt style="float: left;"> &nbsp&nbsp{{ symbol }}</dt>
+      {% endfor %}
+      </dl>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

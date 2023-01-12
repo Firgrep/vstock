@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'visualizer/site.css' %}"/>
+    <link rel="icon" href="{% static 'visualizer/favicon.ico' %}">
+  </head>
+
+  <body class="bg-image" style="background-image: url('{% static 'visualizer/ticker_background.png' %}'); height: 100vh;">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item active">
+              <!-- Placeholder for nav items to the left-->
+            </li>
+          </ul>
+        </div>
+        <div class="mx-auto order-0">
+          <a href="{% url 'home' %}" class="navbar-brand">Home</a>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+          <ul class="navbar-nav ms-auto">
+            <li>
+              <a href="{% url 'about' %}" class="navbar-brand">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="body-content" style="height: 100%">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+    <script> 
+      $('.image-toggler1').click(function(){
+        $('.image-toggle1').hide();
+        $($(this).attr('data-image-id')).show();
+      });
+
+      $('.image-toggler2').click(function(){
+        $('.image-toggle2').hide();
+        $($(this).attr('data-image-id')).show();
+      });
+
+      $("#switch-button").click(function() {
+        if ($("#revenue_quarterly").hasClass("d-none")) {
+          $("#revenue_quarterly").removeClass("d-none");
+          $("#revenue_annual").addClass("d-none");
+          $("#netincome_quarterly").removeClass("d-none");
+          $("#netincome_annual").addClass("d-none");
+          $("#earnings_quarterly").removeClass("d-none");
+          $("#earnings_annual").addClass("d-none");
+
+          $("#assets_liabilities_quarterly").removeClass("d-none");
+          $("#assets_liabilities_annual").addClass("d-none");
+          $("#debt_to_cash_quarterly").removeClass("d-none");
+          $("#debt_to_cash_annual").addClass("d-none");
+          $("#prices_quarterly").removeClass("d-none");
+          $("#prices_annual").addClass("d-none");
+        } else {
+          $("#revenue_quarterly").addClass("d-none");
+          $("#revenue_annual").removeClass("d-none");
+          $("#netincome_quarterly").addClass("d-none");
+          $("#netincome_annual").removeClass("d-none");
+          $("#earnings_quarterly").addClass("d-none");
+          $("#earnings_annual").removeClass("d-none");
+
+          $("#assets_liabilities_quarterly").addClass("d-none");
+          $("#assets_liabilities_annual").removeClass("d-none");
+          $("#debt_to_cash_quarterly").addClass("d-none");
+          $("#debt_to_cash_annual").removeClass("d-none");
+          $("#prices_quarterly").addClass("d-none");
+          $("#prices_annual").removeClass("d-none");
+        }
+      });
+
+      $(".switch-button-modal").click(function() {
+        var buttonId = $(this).data("button-id");
+        var image1Id = $(this).data("image-1-id");
+        var image2Id = $(this).data("image-2-id");
+    
+        if ($("#" + image1Id).hasClass("d-none")) {
+          $("#" + image1Id).removeClass("d-none");
+          $("#" + image2Id).addClass("d-none");
+        } else {
+          $("#" + image1Id).addClass("d-none");
+          $("#" + image2Id).removeClass("d-none");
+        }
+      });
+
+      function showProgressCursor()
+      {
+        $("#progressMessageLbl").html("Searching database, loading and producing graphs... Please wait.");
+        $("#progressMessage").show();
+      }
+
+    </script>
+
+  </body>
+</html>

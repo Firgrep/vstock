@@ -1,0 +1,38 @@
+{% extends "visualizer/layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+  {% load static %}
+  <section class="video-container">
+    <video autoplay loop muted playsinline poster="{% static 'visualizer/ticker_background.png' %}">
+      <source src="{% static 'visualizer/background_vid.mp4' %}" type="video/mp4">Video not supported
+    </video>
+
+    <div id="progressMessage" style="display:none; padding:5px; border:1px Solid #000">
+      <div id="activityIndicator">&nbsp;</div>
+      <label style="font:bold; display:block; padding:5px; text-align: centre;"
+           id="progressMessageLbl">Searching database, loading and producing graphs... Please wait.</label>
+    </div> <!-- Thanks to Yashika Garg from StackOverflow for the loading wheel code! -->
+
+    <div class="intro-content">
+      <div class="intro-text">
+        <h1>vStock</h1>
+        <h5><em>visualizing fundamental stock data</em></h5>
+        <br>
+      </div>
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form }} 
+        <input type="submit" value="Submit" onclick="showProgressCursor();" autofocus>
+      </form>
+    </div>
+  </section>
+  
+  <footer class="navbar fixed-bottom">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      <h5>Demo by Filip Niklas</h5>
+      <a class="text-white" href="https://filipniklas.com/" target="_blank">filipniklas.com</a>
+    </div>
+  </footer>
+{% endblock %}

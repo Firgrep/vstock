@@ -1,0 +1,120 @@
+body {
+    background: LightBlue;
+    padding-bottom: 70px;
+    background-size: cover;
+    padding-right: 0 !important; /* To fix shifting background site content when opening modal */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
+}
+
+.modal-open, body {overflow: inherit !important;}  /* To fix shifting background site content when opening modal */
+
+.bg {
+    overflow: scroll;
+}
+
+img {
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.container-bg {
+    background-color: rgba(238, 236, 236, 0.9);
+    border-radius: 25px;
+}
+
+.content {
+    border: 3px solid white;
+    position: relative;
+    margin: 0 auto;
+}
+
+.intro-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.error-content {
+    height: 100%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container {
+    height: 50vh;
+    position: relative;
+    overflow: hidden;
+    @media(min-width: 600px) {
+      height: 100vh;
+    }
+}
+  
+video {
+    position: fixed;
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto;
+    z-index: -100;
+}
+
+.intro-text {
+    color: white;
+    text-shadow: 2px 2px 2px #000000;
+}
+
+h5 {
+    color: white;
+}
+
+#progressMessage
+{
+   position:absolute;
+   top:45%;
+   height: 20%;
+   left:25%;
+   width:50%;
+   z-index:3000;
+   border-radius: 25px;
+   background-color: lightblue; 
+   text-align: center;
+}
+
+#activityIndicator 
+{
+  height: 32px;
+  width: 32px;
+  -webkit-background-size: 32px 32px;
+  -o-background-size: 32px 32px;
+  -moz-background-size: 32px 32px;
+  background-size: 32px 32px;
+  margin: 0px auto;
+  background-image: url("/static/visualizer/activity_indicator.gif");
+  background-color: lightblue;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+
+.nav-link {
+    color: #74fd0d;
+}
+
+.nav-item {
+    background-color: #052378;
+    border-radius: 7px;
+}
