@@ -21,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-6$c8wtkt-29b(ai^h*jl=ynkv*hg703o4dp(%3=b6fu+8d2_f$"
+# SECRET_KEY = "django-insecure-6$c8wtkt-29b(ai^h*jl=ynkv*hg703o4dp(%3=b6fu+8d2_f$"
+SECRET_KEY = os.environ.get('VSTOCK_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vstock.herokuapp.com']
 
 
 # Application definition
