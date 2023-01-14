@@ -21,3 +21,4 @@ Since API keys may have limited calls (as in this case), the app uses local cach
 ## Known bugs:
 
 - The loading pop-up does not close after the new page is loaded, which means it stays there when the user hits back.
+- There is a chance that the API provider may return an empty dictionary, which is something the app is not currently programmed to handle and will therefore crash. I noticed this was particularly frequent with non-U.S. companies, hence why the app is currently limited just to those as the data is (assumed) to be complete. Nevertheless, this eventuality needs to be covered. In principle it is an easy fix (add a conditional to check whether dictionary is empty, and, if so, fabricate a default dictionary of zeroes so that the graphs can be produced), but will likely have structural rammifications as to how the rest of the module behaves. 
