@@ -118,3 +118,9 @@ h5 {
     background-color: #052378;
     border-radius: 7px;
 }
+
+.social-media-button {
+    padding: 0px;
+    border-radius: 0px;
+    height: 40px;
+}

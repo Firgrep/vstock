@@ -49,7 +49,7 @@ def ticker(request, tid):
 
             # The existing data is checked against current time. If older than 24 hours,
             # the data will be updated with a fresh API call.
-            if (now - entry.date_recorded).days > 1:
+            if (now - entry.date_recorded).days > 2:
                 print("Old data detected, calling API and updating record.")
                 if cache.get(key_av):
                     print("Max API calls exceeded. Redirecting error page.")
