@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use('SVG')
 from matplotlib import pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib.legend import Legend
@@ -11,6 +11,7 @@ from statistics import mean
 #---------------------------------------------------
 #  Data Treatment and Graph Functions Overview
 #
+#  - Hardcoded variables
 #  - Function Definitons
 #  - Main Function to Open Data and Call Functions
 #  --  Extract data into relevant variables open
@@ -18,6 +19,11 @@ from statistics import mean
 #  --  Call functions
 #
 #---------------------------------------------------
+
+title_fontsize = 40
+y_fontsize_prices = 20
+y_fontsize = 12
+legend_fontsize = 14
 
 @ticker.FuncFormatter
 def million_formatter(x, pos):
@@ -40,12 +46,13 @@ def price_graph(trading_days):
     plt.figure(figsize=(10,8))
     plt.plot(range(len(price_dates_selected)), prices_selected, linewidth=2)
     plt.xlabel(f"Time in {len(price_dates_selected)} trading days")
-    plt.title(f"Last price ${prices_selected[0]}")
+    plt.title(f"Last price ${prices_selected[0]}", fontsize=title_fontsize)
     ax = plt.gca()
     ax.set_xticks(range(len(price_dates_selected)))
     ax.set_xticklabels(price_dates_selected, rotation=27)
     plt.locator_params(axis='x', nbins=10)
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize_prices)
     ax.yaxis.set_major_formatter('${x:1.0f}')
     plt.savefig(f"visualizer/static/visualizer/prices_{trading_days}.svg")
     plt.close()
@@ -54,11 +61,12 @@ def revenue_annual_graph():
 
     plt.figure(figsize=(10,8))
     plt.bar(range(len(income_annual_dates)), revenue_list_annual, color="GoldenRod")
-    plt.title("Annual Revenue")
+    plt.title("Annual Revenue", fontsize=title_fontsize)
     ax = plt.subplot()
     ax.set_xticks(range(len(income_annual_dates)))
     ax.set_xticklabels(income_annual_dates, rotation=27)
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
     plt.savefig("visualizer/static/visualizer/revenue_annual.svg")
     plt.close()
@@ -67,11 +75,12 @@ def revenue_quarterly_graph():
     
     plt.figure(figsize=(10,8))
     plt.bar(range(len(income_quarterly_dates)), revenue_list_quarterly, color="GoldenRod")
-    plt.title("Quarterly Revenue")
+    plt.title("Quarterly Revenue", fontsize=title_fontsize)
     ax = plt.subplot()
     ax.set_xticks(range(len(income_quarterly_dates)))
     ax.set_xticklabels(income_quarterly_dates, rotation=45, ha="right")
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
     plt.savefig("visualizer/static/visualizer/revenue_quarterly.svg")
     plt.close()
@@ -80,11 +89,12 @@ def net_income_annual_graph():
     
     plt.figure(figsize=(10,8))
     plt.bar(range(len(income_annual_dates)), net_income_annual, color="ForestGreen")
-    plt.title("Annual Income")
+    plt.title("Annual Income", fontsize=title_fontsize)
     ax = plt.subplot()
     ax.set_xticks(range(len(income_annual_dates)))
     ax.set_xticklabels(income_annual_dates, rotation=27)
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
     plt.savefig("visualizer/static/visualizer/net_income_annual.svg")
     plt.close()
@@ -93,11 +103,12 @@ def net_income_quarterly_graph():
     
     plt.figure(figsize=(10,8))
     plt.bar(range(len(income_quarterly_dates)), net_income_quarerly, color="ForestGreen")
-    plt.title("Quarterly Income")
+    plt.title("Quarterly Income", fontsize=title_fontsize)
     ax = plt.subplot()
     ax.set_xticks(range(len(income_quarterly_dates)))
     ax.set_xticklabels(income_quarterly_dates, rotation=45, ha="right")
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
     plt.savefig("visualizer/static/visualizer/net_income_quarterly.svg")
     plt.close()
@@ -109,12 +120,13 @@ def assets_liabities_annual_graph():
     ax.bar(balance_annual_time-0.2, balance_annual_assets, color="#003f5c", width=0.2)
     ax.bar(balance_annual_time+0.2, balance_annual_liabilities, width=0.6, color="#bc5090")
     ax.bar(balance_annual_time+0.2, balance_annual_shareholder_equity, bottom=balance_annual_liabilities, color="#ffa600", width=0.6)
-    plt.title("Annual Balance")
+    plt.title("Annual Balance", fontsize=title_fontsize)
     ax.set_xticks(range(len(balance_annual_time)))
     ax.set_xticklabels(balance_annual_time_str, ha="center")
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
-    plt.legend(["Assets", "Liabilities", "Equity"])
+    plt.legend(["Assets", "Liabilities", "Equity"], fontsize=legend_fontsize)
     plt.savefig("visualizer/static/visualizer/assets_liabilities_annual.svg")
     plt.close()
 
@@ -125,12 +137,13 @@ def assets_liabities_quarterly_graph():
     ax.bar(balance_quarterly_time, quarterly_assets, color="#003f5c", width=0.3)
     ax.bar(balance_quarterly_time+0.4, quarterly_liabilities, width=0.5, color="#bc5090")
     ax.bar(balance_quarterly_time+0.4, quarterly_shareholder_equity, bottom=quarterly_liabilities, color="#ffa600", width=0.5)
-    plt.title("Quarterly Balance")
+    plt.title("Quarterly Balance", fontsize=title_fontsize)
     ax.set_xticks(range(len(balance_quarterly_time)))
     ax.set_xticklabels(balance_quarterly_time_str, rotation=45, ha="right")
     ax.invert_xaxis()
+    ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
-    plt.legend(["Assets", "Liabilities", "Equity"])
+    plt.legend(["Assets", "Liabilities", "Equity"], fontsize=legend_fontsize)
     plt.savefig("visualizer/static/visualizer/assets_liabilities_quarterly.svg")
     plt.close()
 
@@ -142,13 +155,14 @@ def earnings_annual_graph(years):
         eps = eps[1:]
         plt.figure(figsize=(10,8))
         plt.bar(range(len(time)), eps, color="LightSeaGreen")
-        plt.title("Annual Earnings Per Share")
+        plt.title("Annual Earnings Per Share", fontsize=title_fontsize)
         ax = plt.subplot()
         ax.set_xticks(range(len(time)))
         ax.set_xticklabels(time, rotation=27)
         ax.invert_xaxis()
+        ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter('${x:1.2f}')
-        plt.legend([f"Latest EPS: {earnings_annual_reported_EPS[0]}"])
+        plt.legend([f"Latest EPS: {earnings_annual_reported_EPS[0]}"], fontsize=legend_fontsize)
         plt.savefig("visualizer/static/visualizer/earnings_annual.svg")
         plt.close()
     
@@ -171,16 +185,17 @@ def earnings_quarterly_graph(years):
         plt.figure(figsize=(10,8))
         plt.bar(range(len(time)), eps, color="LightSeaGreen")
         plt.bar(range(len(time)), beat_difference, bottom=eps, color=np.where(beat_difference < 0, 'g', 'r'))
-        plt.title("Quarterly Earnings Per Share")
+        plt.title("Quarterly Earnings Per Share", fontsize=title_fontsize)
         ax = plt.subplot()
         ax.set_xticks(range(len(time)))
         ax.set_xticklabels(time, rotation=45, ha="right")
         ax.invert_xaxis()
+        ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter('${x:1.2f}')
         plt.legend([f"Latest EPS: {earnings_quarterly_reported_EPS[0]}"])
         green_patch = mpatches.Patch(color='green', label='Beat')
         red_patch = mpatches.Patch(color='red', label='Miss')
-        leg = Legend(ax, handles=[green_patch, red_patch], labels=["Beat", "Miss"], loc='lower right')
+        leg = Legend(ax, handles=[green_patch, red_patch], labels=["Beat", "Miss"], loc='lower right', fontsize=legend_fontsize)
         ax.add_artist(leg)
         plt.savefig("visualizer/static/visualizer/earnings_quarterly.svg")
         plt.close()
@@ -205,12 +220,13 @@ def debt_to_cash_annual_graph(years):
         ax.bar(time, cash, color="OliveDrab", width=0.4)
         ax.bar(time+0.4, long_term, width=0.4, color="Maroon")
         ax.bar(time+0.4, short_term, bottom=long_term, color="MediumVioletRed", width=0.4)
-        plt.title("Debt to Cash Annual")
+        plt.title("Debt to Cash Annual", fontsize=title_fontsize)
         ax.set_xticks(range(len(time)))
         ax.set_xticklabels(balance_annual_time_str, ha="right")
         ax.invert_xaxis()
+        ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter(million_formatter)
-        plt.legend(["Cash and Cash Equivalents", "Long Term Debt", "Short Term Debt"])
+        plt.legend(["Cash and Cash Equivalents", "Long Term Debt", "Short Term Debt"], fontsize=legend_fontsize)
         plt.savefig("visualizer/static/visualizer/debt_to_cash_annual.svg")
         plt.close()
     
@@ -238,12 +254,13 @@ def debt_to_cash_quarterly_graph(years):
         ax.bar(time, cash, color="OliveDrab", width=0.4)
         ax.bar(time+0.4, long_term, width=0.4, color="Maroon")
         ax.bar(time+0.4, short_term, bottom=long_term, color="MediumVioletRed", width=0.4)
-        plt.title("Debt to Cash Quarterly")
+        plt.title("Debt to Cash Quarterly", fontsize=title_fontsize)
         ax.set_xticks(range(len(time)))
         ax.set_xticklabels(balance_quarterly_time_str, rotation=45, ha="right")
         ax.invert_xaxis()
+        ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter(million_formatter)
-        plt.legend(["Cash and Cash Equivalents", "Long Term Debt", "Short Term Debt"])
+        plt.legend(["Cash and Cash Equivalents", "Long Term Debt", "Short Term Debt"], fontsize=legend_fontsize)
         plt.savefig("visualizer/static/visualizer/debt_to_cash_quarterly.svg")
         plt.close()
     
@@ -277,13 +294,14 @@ def roic(years):
 
         plt.figure(figsize=(10,8))
         plt.plot(range(len(time)), roic_val, color="Purple", marker="o")
-        plt.title("Return on Invested Capital")
+        plt.title("Return on Invested Capital", fontsize=title_fontsize)
         ax = plt.subplot()
         ax.set_xticks(range(len(time)))
         ax.set_xticklabels(balance_annual_time_str, rotation=27)
         ax.invert_xaxis()
+        ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter('{x:1.2f}%')
-        plt.legend([f"1y RoIC: {round(roic_val[0], 1)}%"])
+        plt.legend([f"1y RoIC: {round(roic_val[0], 1)}%"], fontsize=legend_fontsize)
         plt.savefig("visualizer/static/visualizer/roic_annual.svg")
         plt.close()
         return roic_val

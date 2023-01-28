@@ -4,16 +4,18 @@ Ticker
 {% endblock %}
 {% block content %}
 {% load static %}
-<br> 
-<div class="container">
-  <div class="container-bg">
-
+<br>
+<div class="container back-box">
+  <div class="holder">
     <div class="row">
-      <div class="col text-center">
-        <img src="{% static 'visualizer/roic_annual.svg' %}" id="roic_annual" class="img-fluid" alt="Roic Annual"/>
+      <div class="square-bg" style="align-items: center;">
+        <div>
+          <img src="{% static 'visualizer/roic_annual.svg' %}" id="roic_annual" class="img-fluid" alt="Roic Annual"/>
+        </div>
       </div>
 
-      <div class="col">
+      <div class="square-bg">
+        <div>
         <br>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
@@ -23,8 +25,8 @@ Ticker
             <button class="nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
           </li>
         </ul>
-
-        <div class="tab-content" id="myTabContent">
+        <br>
+        <div class="tab-content" id="myTabContent" style="height: 645px">
 
           <div class="tab-pane fade show active" id="KeyData-tab-pane" role="tabpanel" aria-labelledby="KeyData-tab" tabindex="0">
             <h2>{{ overview.Name }} ({{ ticker }})</h2>
@@ -93,10 +95,11 @@ Ticker
             
         </div>
       </div>
+      </div>
     </div>
 
     <div class="row">
-      <div class="col text-center">
+      <div class="square text-center">
         <br>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
           <button type="button" class="btn btn-light btn-sml" id="switch-button">Annual/Quarterly</button>
@@ -105,30 +108,30 @@ Ticker
     </div>
 
     <div class="row">
-      <div class="col">
+      <div class="square">
         <img src="{% static 'visualizer/revenue_annual.svg' %}" id="revenue_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" alt="Annual Revenue"/>
         <img src="{% static 'visualizer/revenue_quarterly.svg' %}" id="revenue_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Rev_Modal" alt="Quarterly Revenue"/>
       </div>
-      <div class="col">
+      <div class="square">
         <img src="{% static 'visualizer/net_income_annual.svg' %}" id="netincome_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_NetIncome_Modal" alt="Net Income Annual"/>
         <img src="{% static 'visualizer/net_income_quarterly.svg' %}" id="netincome_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_NetIncome_Modal" alt="Net Income Quarterly"/>  
       </div>
-      <div class="col">
+      <div class="square">
         <img src="{% static 'visualizer/earnings_annual.svg' %}" id="earnings_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Earnings_Modal" alt="Earnings Annual"/>
         <img src="{% static 'visualizer/earnings_quarterly.svg' %}" id="earnings_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Earnings_Modal" alt="Earnings Quarterly"/>  
       </div>    
     </div>
 
     <div class="row">
-      <div class="col">
+      <div class="square">
         <img src="{% static 'visualizer/assets_liabilities_annual.svg' %}" id="assets_liabilities_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_AssLia_Modal" alt="Annual Assets Liabilities"/>
         <img src="{% static 'visualizer/assets_liabilities_quarterly.svg' %}" id="assets_liabilities_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_AssLia_Modal" alt="Quarterly Assets Liabilities"/>
       </div>
-      <div class="col">
+      <div class="square">
         <img src="{% static 'visualizer/debt_to_cash_annual.svg' %}" id="debt_to_cash_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_DebtCash_Modal" alt="Debt to Cash Annual"/>
         <img src="{% static 'visualizer/debt_to_cash_quarterly.svg' %}" id="debt_to_cash_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_DebtCash_Modal" alt="Debt to Cash Quarterly"/>  
       </div>
-      <div class="col">
+      <div class="square">
         <img src="{% static 'visualizer/prices_251.svg' %}" id="prices_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Prices_Modal" alt="Prices 1y"/>
         <img src="{% static 'visualizer/prices_90.svg' %}" id="prices_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Prices_Modal" alt="Prices 90days"/>
       </div>   
@@ -137,7 +140,6 @@ Ticker
     <div class="row" style="text-align: justify; padding: 30px;">
       <p><em>Disclaimer: The information on this site, and its related publications, is not intended to be, nor does it constitute, investment advice or recommendations. In no event shall vStock be liable to any member, guest, or third party for any damages of any kind arising out of the use of any content or other material published or available on vstock.herokuapp.com, or relating to the use of, or inability to use, vstock.herokuapp.com or any content. The information on this site is not guaranteed for completeness, accuracy, or in any other way.</em></p>
     </div>
-
   </div>
 </div>
 <br>

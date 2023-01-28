@@ -6,17 +6,21 @@ Ticker_Invalid
 {% load static %}
 
 <div class="container text-center error-content">
-  <div class="container-bg" style="padding: 15px;">
-    <img src="{% static 'visualizer/invalid.png' %}" class="img-fluid" alt="Invalid image" style="height: 150px;"/>
-    <h3>Ticker Invalid</h3>
-    <p>Unfortunately, the ticker symbol you searched for either does not exist or is not covered by our data provider.</p>
-    <p>Please consider searching any of the tickers currently in the database. Thank you.</p>
-    <div class="d-flex">
-      <dl class="mx-auto justify-content-center">
-      {% for symbol in symbol_list|slice:":10" %}
-        <dt style="float: left;"> &nbsp&nbsp{{ symbol }}</dt>
-      {% endfor %}
-      </dl>
+  <div class="container" style="padding: 15px;">
+    <div class="row">
+      <div class="column back-box">
+        <img src="{% static 'visualizer/invalid.png' %}" class="img-fluid" alt="Invalid image" style="height: 150px;"/>
+        <h3>Ticker Invalid</h3>
+        <p>Unfortunately, the ticker symbol you searched for either does not exist or is not covered by our data provider.</p>
+        <p>Please consider searching any of the tickers currently in the database. Thank you.</p>
+        <div class="d-flex">
+          <dl class="mx-auto justify-content-center">
+          {% for symbol in symbol_list|slice:":10" %}
+            <dt style="float: left;"> &nbsp&nbsp{{ symbol }}</dt>
+          {% endfor %}
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </div>

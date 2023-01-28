@@ -13,12 +13,12 @@ body {
     overflow: scroll;
 }
 
-img {
+img, ::after, ::before {
     padding: 10px;
     border-radius: 25px;
 }
 
-.container-bg {
+.back-box {
     background-color: rgba(238, 236, 236, 0.9);
     border-radius: 25px;
 }
@@ -27,6 +27,12 @@ img {
     border: 3px solid white;
     position: relative;
     margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .intro-content {
@@ -39,6 +45,30 @@ img {
     text-align: center;
     position: relative;
     z-index: 10;
+}
+
+.square-bg {
+    display: flex;
+    max-height: 700px;
+    max-width: 550px;
+    margin-bottom: 35px;
+}
+
+.square {
+    display: flex;
+    max-height: 390px;
+    max-width: 390px;
+}
+
+.holder {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+@media (max-width: 300px) {
+    #myTabContent {height: 800px;}
 }
 
 .error-content {
@@ -68,6 +98,16 @@ video {
     z-index: -100;
 }
 
+@media only screen and (max-width: 600px) {
+    .background {
+      background-image:  url("/static/visualizer/ticker_background.png");
+    }
+    
+    video {
+     display: none;
+    }
+}
+
 .intro-text {
     color: white;
     text-shadow: 2px 2px 2px #000000;
@@ -77,11 +117,10 @@ h5 {
     color: white;
 }
 
-#progressMessage
-{
+#progressMessage {
    position:absolute;
    top:45%;
-   height: 20%;
+   height: 40%;
    left:25%;
    width:50%;
    z-index:3000;
@@ -90,8 +129,7 @@ h5 {
    text-align: center;
 }
 
-#activityIndicator 
-{
+#activityIndicator {
   height: 32px;
   width: 32px;
   -webkit-background-size: 32px 32px;
@@ -117,10 +155,26 @@ h5 {
 .nav-item {
     background-color: #052378;
     border-radius: 7px;
+    text-align: center;
 }
 
 .social-media-button {
     padding: 0px;
     border-radius: 0px;
     height: 40px;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand.abs
+        {
+            position: absolute;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+    }
+    
+#collapseNavbar {
+    z-index: 10;
 }

@@ -6,18 +6,22 @@ Ticker_Request_Denied
 {% load static %}
 
 <div class="container text-center error-content">
-  <div class="container-bg" style="padding: 15px;">
-    <img src="{% static 'visualizer/alert.png' %}" class="img-fluid" alt="Alert image" style="height: 150px;"/>
-    <h3>API calls exceeded</h3>
-    <p>Unfortunately, the data call for this demo is currently maxed out. Maximum number of fresh calls in this demo is restricted to 1 per minute, regardless of user.</p>
-    <br>
-    <p>Please consider searching any of the tickers currently in the database. Thank you.</p>
-    <div class="d-flex">
-      <dl class="mx-auto justify-content-center">
-      {% for symbol in symbol_list|slice:":10" %}
-        <dt style="float: left;"> &nbsp&nbsp{{ symbol }}</dt>
-      {% endfor %}
-      </dl>
+  <div class="container" style="padding: 15px;">
+    <div class="row">
+      <div class="column back-box">
+        <img src="{% static 'visualizer/alert.png' %}" class="img-fluid" alt="Alert image" style="height: 150px;"/>
+        <h3>API calls exceeded</h3>
+        <p>Unfortunately, the data call for this demo is currently maxed out. Maximum number of fresh calls in this demo is restricted to 1 per minute, regardless of user.</p>
+        <br>
+        <p>Please consider searching any of the tickers currently in the database. Thank you.</p>
+        <div class="d-flex">
+          <dl class="mx-auto justify-content-center">
+          {% for symbol in symbol_list|slice:":10" %}
+            <dt style="float: left;"> &nbsp&nbsp{{ symbol }}</dt>
+          {% endfor %}
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </div>
