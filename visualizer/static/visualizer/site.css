@@ -23,6 +23,8 @@ img, ::after, ::before {
     border-radius: 25px;
 }
 
+
+
 .content {
     border: 3px solid white;
     position: relative;

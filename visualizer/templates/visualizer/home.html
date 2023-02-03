@@ -27,7 +27,12 @@ Home
         <input type="submit" value="Submit" onclick="showProgressCursor();" autofocus>
       </form>
     </div>
+
   </section>
+
+  <div class="back-box" style="padding: 15px; margin: 0 35px;">
+    <p>An issue persists where the graphs may not update as intended. This is due to the way static files are treated on the Heroku server. Several solutions are being considered: set up an external storage (e.g. AWS S3), find a new host with less ephemeral static files structure (e.g. Linode) or refactor the graph code to use a more direct frontend deployment (e.g. JavaScript) that avoids the need to store/update graph files altogether. None of these are quick fixes and there are trade-offs to consider with each. Meanwhile, please enjoy the visuals and the key data. I apologize for the inconvenience.</p>
+  </div>
   
   <footer class="navbar fixed-bottom">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
