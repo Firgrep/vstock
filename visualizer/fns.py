@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('SVG')
+matplotlib.use('AGG')
 from matplotlib import pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib.legend import Legend
@@ -7,6 +7,8 @@ import matplotlib.patches as mpatches
 import numpy as np
 import json
 from statistics import mean
+import base64
+from io import BytesIO
 
 #---------------------------------------------------
 #  Data Treatment and Graph Functions Overview
@@ -24,6 +26,16 @@ title_fontsize = 40
 y_fontsize_prices = 20
 y_fontsize = 12
 legend_fontsize = 14
+
+def get_graph():
+    buffer = BytesIO()
+    plt.savefig(buffer, format="png")
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graph = base64.b64encode(image_png)
+    graph = graph.decode("utf-8")
+    buffer.close()
+    return graph
 
 @ticker.FuncFormatter
 def million_formatter(x, pos):
@@ -54,8 +66,9 @@ def price_graph(trading_days):
     ax.invert_xaxis()
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize_prices)
     ax.yaxis.set_major_formatter('${x:1.0f}')
-    plt.savefig(f"visualizer/static/visualizer/prices_{trading_days}.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def revenue_annual_graph():   
 
@@ -68,8 +81,9 @@ def revenue_annual_graph():
     ax.invert_xaxis()
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
-    plt.savefig("visualizer/static/visualizer/revenue_annual.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def revenue_quarterly_graph():
     
@@ -82,8 +96,9 @@ def revenue_quarterly_graph():
     ax.invert_xaxis()
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
-    plt.savefig("visualizer/static/visualizer/revenue_quarterly.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def net_income_annual_graph():
     
@@ -96,8 +111,9 @@ def net_income_annual_graph():
     ax.invert_xaxis()
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
-    plt.savefig("visualizer/static/visualizer/net_income_annual.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def net_income_quarterly_graph():
     
@@ -110,8 +126,9 @@ def net_income_quarterly_graph():
     ax.invert_xaxis()
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
-    plt.savefig("visualizer/static/visualizer/net_income_quarterly.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def assets_liabities_annual_graph():
            
@@ -127,8 +144,9 @@ def assets_liabities_annual_graph():
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
     plt.legend(["Assets", "Liabilities", "Equity"], fontsize=legend_fontsize)
-    plt.savefig("visualizer/static/visualizer/assets_liabilities_annual.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def assets_liabities_quarterly_graph():
     
@@ -144,8 +162,9 @@ def assets_liabities_quarterly_graph():
     ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
     ax.yaxis.set_major_formatter(million_formatter)
     plt.legend(["Assets", "Liabilities", "Equity"], fontsize=legend_fontsize)
-    plt.savefig("visualizer/static/visualizer/assets_liabilities_quarterly.svg")
+    graph = get_graph()
     plt.close()
+    return graph
 
 def earnings_annual_graph(years):
 
@@ -163,16 +182,19 @@ def earnings_annual_graph(years):
         ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter('${x:1.2f}')
         plt.legend([f"Latest EPS: {earnings_annual_reported_EPS[0]}"], fontsize=legend_fontsize)
-        plt.savefig("visualizer/static/visualizer/earnings_annual.svg")
+        graph = get_graph()
         plt.close()
+        return graph
     
     if len(earnings_annual_reported_EPS) > years:
         earnings_annual_dates_selected = earnings_annual_dates[:years]
         earnings_annual_reported_EPS_selected = earnings_annual_reported_EPS[:years]
-        eps_graph(earnings_annual_dates_selected, earnings_annual_reported_EPS_selected)
-    
+        graph = eps_graph(earnings_annual_dates_selected, earnings_annual_reported_EPS_selected)
+
     else:
-        eps_graph()
+        graph = eps_graph()
+    
+    return graph
 
 def earnings_quarterly_graph(years):
 
@@ -197,17 +219,20 @@ def earnings_quarterly_graph(years):
         red_patch = mpatches.Patch(color='red', label='Miss')
         leg = Legend(ax, handles=[green_patch, red_patch], labels=["Beat", "Miss"], loc='lower right', fontsize=legend_fontsize)
         ax.add_artist(leg)
-        plt.savefig("visualizer/static/visualizer/earnings_quarterly.svg")
+        graph = get_graph()
         plt.close()
+        return graph
     
     if len(earnings_quarterly_reported_EPS) > quarters:
         earnings_quarterly_reported_dates_selected = earnings_quarterly_reported_dates[:quarters]
         earnings_quarterly_reported_EPS_selected = earnings_quarterly_reported_EPS[:quarters]
         earnings_quarterly_estimated_EPS_selected = earnings_quarterly_estimated_EPS[:quarters]
-        eps_graph(earnings_quarterly_reported_dates_selected, earnings_quarterly_reported_EPS_selected, earnings_quarterly_estimated_EPS_selected)
+        graph = eps_graph(earnings_quarterly_reported_dates_selected, earnings_quarterly_reported_EPS_selected, earnings_quarterly_estimated_EPS_selected)
     
     else:
-        eps_graph()
+        graph = eps_graph()
+    
+    return graph
     
 def debt_to_cash_annual_graph(years):
 
@@ -227,19 +252,22 @@ def debt_to_cash_annual_graph(years):
         ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter(million_formatter)
         plt.legend(["Cash and Cash Equivalents", "Long Term Debt", "Short Term Debt"], fontsize=legend_fontsize)
-        plt.savefig("visualizer/static/visualizer/debt_to_cash_annual.svg")
+        graph = get_graph()
         plt.close()
+        return graph
     
     if len(balance_annual_time) > years:
         balance_annual_time_selected = balance_annual_time[:years]
         balance_cash_and_equivalent_selected = balance_annual_cash_and_equivalent[:years]
         balance_longterm_debt_selected = balance_annual_longterm_debt[:years]
         balance_shortterm_debt_selected = balance_annual_shortterm_debt[:years]
-        d_to_c_annual_graph(balance_annual_time_selected, balance_cash_and_equivalent_selected, 
+        graph = d_to_c_annual_graph(balance_annual_time_selected, balance_cash_and_equivalent_selected, 
                     balance_longterm_debt_selected, balance_shortterm_debt_selected)
     
     else:
-        d_to_c_annual_graph()
+        graph = d_to_c_annual_graph()
+    
+    return graph
 
 def debt_to_cash_quarterly_graph(years):
 
@@ -261,19 +289,22 @@ def debt_to_cash_quarterly_graph(years):
         ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter(million_formatter)
         plt.legend(["Cash and Cash Equivalents", "Long Term Debt", "Short Term Debt"], fontsize=legend_fontsize)
-        plt.savefig("visualizer/static/visualizer/debt_to_cash_quarterly.svg")
+        graph = get_graph()
         plt.close()
+        return graph
     
     if len(balance_quarterly_time) > quarters:
         balance_quarterly_time_selected = balance_quarterly_time[:quarters]
         balance_cash_and_equivalent_selected = balance_quarterly_cash_and_equivalent[:quarters]
         balance_longterm_debt_selected = balance_quarterly_longterm_debt[:quarters]
         balance_shortterm_debt_selected = balance_quarterly_shortterm_debt[:quarters]
-        d_to_c_quarterly_graph(balance_quarterly_time_selected, balance_cash_and_equivalent_selected, 
+        graph = d_to_c_quarterly_graph(balance_quarterly_time_selected, balance_cash_and_equivalent_selected, 
                     balance_longterm_debt_selected, balance_shortterm_debt_selected)
     
     else:
-        d_to_c_quarterly_graph()
+        graph = d_to_c_quarterly_graph()
+    
+    return graph
 
 def roic(years):
 
@@ -302,9 +333,9 @@ def roic(years):
         ax.tick_params(axis='y', which='major', labelsize=y_fontsize)
         ax.yaxis.set_major_formatter('{x:1.2f}%')
         plt.legend([f"1y RoIC: {round(roic_val[0], 1)}%"], fontsize=legend_fontsize)
-        plt.savefig("visualizer/static/visualizer/roic_annual.svg")
+        graph = get_graph()
         plt.close()
-        return roic_val
+        return graph, roic_val
     
     if len(balance_annual_time) > years:
         balance_annual_dates_selected = balance_annual_time[:years]
@@ -493,21 +524,22 @@ def produce_graphs(entry):
     #--------------------------------------------------------
     # Calling functions to produce graphs
     #--------------------------------------------------------
-    price_graph(1255)
-    price_graph(251)
-    price_graph(30)
-    price_graph(90)
-    revenue_annual_graph()
-    revenue_quarterly_graph()
-    net_income_annual_graph()
-    net_income_quarterly_graph()
-    assets_liabities_annual_graph()
-    assets_liabities_quarterly_graph()
-    earnings_annual_graph(10)
-    earnings_quarterly_graph(10)
-    debt_to_cash_annual_graph(10)
-    debt_to_cash_quarterly_graph(10)
-    roic_range = roic(10)
+    overview["price_graph1255"] = price_graph(1255)
+    overview["price_graph251"] = price_graph(251)
+    overview["price_graph30"] = price_graph(30)
+    overview["price_graph90"] = price_graph(90)
+    overview["revenue_annual_graph"] = revenue_annual_graph()
+    overview["revenue_quarterly_graph"] = revenue_quarterly_graph()
+    overview["net_income_annual_graph"] = net_income_annual_graph()
+    overview["net_income_quarterly_graph"] = net_income_quarterly_graph()
+    overview["assets_liabilities_annual_graph"] = assets_liabities_annual_graph()
+    overview["assets_liabilities_quarterly_graph"] = assets_liabities_quarterly_graph()
+    overview["earnings_annual_graph"] = earnings_annual_graph(10)
+    overview["earnings_quarterly_graph"] = earnings_quarterly_graph(10)
+    overview["debt_to_cash_annual_graph"] = debt_to_cash_annual_graph(10)
+    overview["debt_to_cash_quarterly_graph"] = debt_to_cash_quarterly_graph(10)
+    roic_graph, roic_range = roic(10)
     overview["ReturnOnInvestedCapital"] = round(mean(roic_range), 1)
+    overview["roic_graph"] = roic_graph
 
     return overview

@@ -51,7 +51,7 @@ img, ::after, ::before {
 
 .square-bg {
     display: flex;
-    max-height: 700px;
+    max-height: 750px;
     max-width: 550px;
     margin-bottom: 35px;
 }
