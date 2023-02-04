@@ -17,8 +17,9 @@ Since API keys may have limited calls (as in this case), the app uses local cach
 - Refactoring possibilites: the code could be improved for readability, a number of arguments used in functions could be streamlined as easy-to-access-and-alter variables put at the top of the file. Additionally, the graph functions could be nested as methods a class structure, making the ticker data itself a particular object and then stored as this. One would have to check what is the best solution regarding the figures produced in this case, as currently the figures are produced as .svg simply overwrite the previous upon call. 
 - Streamline data treatment: the data from the API are retreived as .json and stored in the database as .json. Currently, all of the data populates a single field in the database and this is not user-friendly or particularly effective should one have to retreieve a specific piece of data. In the current version, when retrieved from the database, the .json object is opened and prepared into specific global variables for graph production, but this preparation process takes place every time data is retrieved from the database. The upside is that this data necessarily needs to be treated when first retrieved from the API, so this preparation is necessary at least once, but there room for improvement. Perhaps a better control flow would be to prepare the fresh data into a plurality of fields into the database, which, when retrieved, simply retrieve these fields rather than re-preparing the .json file. 
 
-## Updates:
+## Updates (selection):
 
+- 04/02/23 Modified graph functions to store graphs in memory using BytesIO and then load these directly into the HTML, bypassing saving as static/media files.
 - 28/01/23 Improved app responsiveness to smaller devices and increased fonts on graphs for improved readability. 
 
 ## Known bugs:
