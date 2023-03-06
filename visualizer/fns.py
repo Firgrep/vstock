@@ -524,22 +524,25 @@ def produce_graphs(entry):
     #--------------------------------------------------------
     # Calling functions to produce graphs
     #--------------------------------------------------------
-    overview["price_graph1255"] = price_graph(1255)
-    overview["price_graph251"] = price_graph(251)
-    overview["price_graph30"] = price_graph(30)
-    overview["price_graph90"] = price_graph(90)
-    overview["revenue_annual_graph"] = revenue_annual_graph()
-    overview["revenue_quarterly_graph"] = revenue_quarterly_graph()
-    overview["net_income_annual_graph"] = net_income_annual_graph()
-    overview["net_income_quarterly_graph"] = net_income_quarterly_graph()
-    overview["assets_liabilities_annual_graph"] = assets_liabities_annual_graph()
-    overview["assets_liabilities_quarterly_graph"] = assets_liabities_quarterly_graph()
-    overview["earnings_annual_graph"] = earnings_annual_graph(10)
-    overview["earnings_quarterly_graph"] = earnings_quarterly_graph(10)
-    overview["debt_to_cash_annual_graph"] = debt_to_cash_annual_graph(10)
-    overview["debt_to_cash_quarterly_graph"] = debt_to_cash_quarterly_graph(10)
+    # overview["price_graph1255"] = price_graph(1255)
+    # overview["price_graph251"] = price_graph(251)
+    # overview["price_graph30"] = price_graph(30)
+    # overview["price_graph90"] = price_graph(90)
+    # overview["revenue_annual_graph"] = revenue_annual_graph()
+    # overview["revenue_quarterly_graph"] = revenue_quarterly_graph()
+    # overview["net_income_annual_graph"] = net_income_annual_graph()
+    # overview["net_income_quarterly_graph"] = net_income_quarterly_graph()
+    # overview["assets_liabilities_annual_graph"] = assets_liabities_annual_graph()
+    # overview["assets_liabilities_quarterly_graph"] = assets_liabities_quarterly_graph()
+    # overview["earnings_annual_graph"] = earnings_annual_graph(10)
+    # overview["earnings_quarterly_graph"] = earnings_quarterly_graph(10)
+    # overview["debt_to_cash_annual_graph"] = debt_to_cash_annual_graph(10)
+    # overview["debt_to_cash_quarterly_graph"] = debt_to_cash_quarterly_graph(10)
+
     roic_graph, roic_range = roic(10)
     overview["ReturnOnInvestedCapital"] = round(mean(roic_range), 1)
     overview["roic_graph"] = roic_graph
-
+    overview["revenue_list_annual"] = revenue_list_annual
+    overview["income_annual_dates"] = income_annual_dates
+    overview["net_income_annual"] = net_income_annual
     return overview

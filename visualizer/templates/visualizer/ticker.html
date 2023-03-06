@@ -16,86 +16,87 @@ Ticker
 
       <div class="square-bg">
         <div>
-        <br>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="KeyData-tab" data-bs-toggle="tab" data-bs-target="#KeyData-tab-pane" type="button" role="tab" aria-controls="KeyData-tab-pane" aria-selected="true">Key Data</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
-          </li>
-        </ul>
-        <br>
-        <div class="tab-content" id="myTabContent" style="height: 645px">
+          <br>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="KeyData-tab" data-bs-toggle="tab" data-bs-target="#KeyData-tab-pane" type="button" role="tab" aria-controls="KeyData-tab-pane" aria-selected="true">Key Data</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
+            </li>
+          </ul>
+          <br>
+          <div class="tab-content" id="myTabContent" style="height: 645px">
 
-          <div class="tab-pane fade show active" id="KeyData-tab-pane" role="tabpanel" aria-labelledby="KeyData-tab" tabindex="0">
-            <h2>{{ overview.Name }} ({{ ticker }})</h2>
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td colspan="2">{{ overview.AssetType }} ({{ overview.Currency }}) {{ overview.Exchange }}</td>
-                  <td></td>
-                  <td>{{ overview.Sector }}</td>
-                </tr>
-                <tr>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2"><strong>Market Cap: </strong>{{ overview.MarketCapitalization }}</td>
-                  <td><strong>ROIC 5y: </strong>{{ overview.ReturnOnInvestedCapital }}%</td>
-                  <td><strong>EPS: </strong>{{ overview.EPS }}</td>
-                </tr>
-                <tr>
-                  <td colspan="2"><strong>P/E(FWR): </strong>{{ overview.PERatio }} ({{ overview.ForwardPE }})</td>
-                  <td><strong>P/S </strong>{{ overview.PriceToSalesRatioTTM }}</td>
-                  <td><strong>P/B: </strong>{{ overview.PriceToBookRatio }}</td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                  </td>
-                  <td><strong>DPS: </strong>{{ overview.DividendPerShare }}</td>
-                  <td><strong>Div. Yield: </strong>{{ overview.DividendYield }}%</td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                  </td>
-                  <td><strong>Div. Date:<br>&nbsp</strong>{{ overview.DividendDate }}</td>
-                  <td><strong>Ex. Div.:<br>&nbsp</strong>{{ overview.ExDividendDate }}</td>
-                </tr>
-                <tr>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>52 Week High:<br>&nbsp</strong>${{ overview.52WeekHigh }}</td>
-                  <td><strong>52 Week Low:<br>&nbsp</strong>${{ overview.52WeekLow }}</td>
-                  <td><strong>50 Day MA:<br>&nbsp</strong>${{ overview.50DayMovingAverage }}</td>
-                  <td><strong>200 Day MA:<br>&nbsp</strong>${{ overview.200DayMovingAverage }}</td>
-                </tr>
-                <tr>
-                  <td><strong>Beta </strong>{{ overview.Beta }}</td>
-                  <td><strong>Last Price: </strong>${{ overview.LastPrice }}</td>
-                  <td colspan="2"><strong>Analyst Target Price: </strong>${{ overview.AnalystTargetPrice }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            <div class="tab-pane fade show active" id="KeyData-tab-pane" role="tabpanel" aria-labelledby="KeyData-tab" tabindex="0">
+              <h2>{{ overview.Name }} ({{ ticker }})</h2>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan="2">{{ overview.AssetType }} ({{ overview.Currency }}) {{ overview.Exchange }}</td>
+                    <td></td>
+                    <td>{{ overview.Sector }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Market Cap: </strong>{{ overview.MarketCapitalization }}</td>
+                    <td><strong>ROIC 5y: </strong>{{ overview.ReturnOnInvestedCapital }}%</td>
+                    <td><strong>EPS: </strong>{{ overview.EPS }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>P/E(FWR): </strong>{{ overview.PERatio }} ({{ overview.ForwardPE }})</td>
+                    <td><strong>P/S </strong>{{ overview.PriceToSalesRatioTTM }}</td>
+                    <td><strong>P/B: </strong>{{ overview.PriceToBookRatio }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                    </td>
+                    <td><strong>DPS: </strong>{{ overview.DividendPerShare }}</td>
+                    <td><strong>Div. Yield: </strong>{{ overview.DividendYield }}%</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                    </td>
+                    <td><strong>Div. Date:<br>&nbsp</strong>{{ overview.DividendDate }}</td>
+                    <td><strong>Ex. Div.:<br>&nbsp</strong>{{ overview.ExDividendDate }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>52 Week High:<br>&nbsp</strong>${{ overview.52WeekHigh }}</td>
+                    <td><strong>52 Week Low:<br>&nbsp</strong>${{ overview.52WeekLow }}</td>
+                    <td><strong>50 Day MA:<br>&nbsp</strong>${{ overview.50DayMovingAverage }}</td>
+                    <td><strong>200 Day MA:<br>&nbsp</strong>${{ overview.200DayMovingAverage }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Beta </strong>{{ overview.Beta }}</td>
+                    <td><strong>Last Price: </strong>${{ overview.LastPrice }}</td>
+                    <td colspan="2"><strong>Analyst Target Price: </strong>${{ overview.AnalystTargetPrice }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-          <div class="tab-pane fade" id="CompanyDesc-tab-pane" role="tabpanel" aria-labelledby="CompanyDesc-tab" tabindex="0">
-            <h2>{{ overview.Name }} ({{ ticker }})</h2>
-            <ul style="list-style: none">
-              <li><strong>Country: </strong>{{ overview.Country }}</li>
-              <li><strong>Sector: </strong>{{ overview.Sector }}</li>
-              <li><strong>Industry: </strong>{{ overview.Industry }}</li>
-            </ul>
-            <p style="padding-right: 25px; text-align: justify;">{{ overview.Description }}</p>
-            <p>Address: {{ overview.Address }}</p>
+            <div class="tab-pane fade" id="CompanyDesc-tab-pane" role="tabpanel" aria-labelledby="CompanyDesc-tab" tabindex="0">
+              <h2>{{ overview.Name }} ({{ ticker }})</h2>
+              <ul style="list-style: none">
+                <li><strong>Country: </strong>{{ overview.Country }}</li>
+                <li><strong>Sector: </strong>{{ overview.Sector }}</li>
+                <li><strong>Industry: </strong>{{ overview.Industry }}</li>
+              </ul>
+              <p style="padding-right: 25px; text-align: justify;">{{ overview.Description }}</p>
+              <p>Address: {{ overview.Address }}</p>
+            </div>
+              
           </div>
-            
         </div>
       </div>
-      </div>
+
     </div>
 
     <div class="row">
@@ -137,6 +138,15 @@ Ticker
       </div>   
     </div>
 
+    <div style="height: 500px; width: 1000px; padding: 10px;">
+      <canvas id="canvasRevenueAnnual" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" ></canvas>
+    </div>
+
+    <div>
+      <p>Test chart JS2</p>
+      <canvas id="canvasNetIncomeAnnual"></canvas>
+    </div>
+
     <div class="row" style="text-align: justify; padding: 30px;">
       <p><em>Disclaimer: The information on this site, and its related publications, is not intended to be, nor does it constitute, investment advice or recommendations. In no event shall vStock be liable to any member, guest, or third party for any damages of any kind arising out of the use of any content or other material published or available on vstock.herokuapp.com, or relating to the use of, or inability to use, vstock.herokuapp.com or any content. The information on this site is not guaranteed for completeness, accuracy, or in any other way.</em></p>
     </div>
@@ -158,7 +168,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="1" data-image-1-id="image1-1" data-image-2-id="image2-1">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}"  id="image1-1" class="img-fluid" alt="Annual Revenue"/>
+            <canvas id="canvasRevenueAnnualBig" id="image1-1"></canvas>
+            {% comment %} <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}"  id="image1-1" class="img-fluid" alt="Annual Revenue"/> {% endcomment %}
             <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="image2-1" class="img-fluid d-none" alt="Quarterly Revenue"/>
           </div>
         </div>
@@ -435,5 +446,88 @@ Ticker
       </div>
     </div>
   </div>
+
+  {{ overview|json_script:"overviewId" }}
+
+ 
+
+  {% comment %} {% for data in overview %} {{ overview.revenue_list_annual }} {% endfor %} {% endcomment %}
+
+  <script>
+    
+    const overviewObject = JSON.parse(document.getElementById('overviewId').textContent);
+    
+    
+
+    const canvasRevenueAnnual = document.getElementById('canvasRevenueAnnual');
+    canvasRevenueAnnual.style.backgroundColor = "white";
+    canvasRevenueAnnual.style.borderRadius = "25px";
+    const revenueAnnual = overviewObject.revenue_list_annual;
+    const incomeAnnualDates = overviewObject.income_annual_dates;
+    new Chart(canvasRevenueAnnual, {
+      type: 'bar',
+      data: {
+        labels: incomeAnnualDates,
+        datasets: [{
+          label: '$',
+          data: revenueAnnual,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const canvasRevenueAnnualBig = document.getElementById('canvasRevenueAnnualBig');
+    new Chart(canvasRevenueAnnualBig, {
+      type: 'bar',
+      data: {
+        labels: incomeAnnualDates,
+        datasets: [{
+          label: '$',
+          data: revenueAnnual,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const canvasNetIncomeAnnual = document.getElementById('canvasNetIncomeAnnual');
+    const netIncomeAnnual = overviewObject.net_income_annual;
+    new Chart(canvasNetIncomeAnnual, {
+      type: 'bar',
+      data: {
+        labels: incomeAnnualDates,
+        datasets: [{
+          label: '$',
+          data: netIncomeAnnual,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+
+
+
+  </script>
+
     
 {% endblock %}
