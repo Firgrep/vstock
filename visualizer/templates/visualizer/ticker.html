@@ -2,6 +2,14 @@
 {% block title %}
 Ticker
 {% endblock %}
+
+{% block head %}
+<script delay src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+{% load static %}
+{{ overview|json_script:"overviewId" }}
+<script delay type="module" src="{% static 'visualizer/ticker-script-main.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 {% load static %}
 <br>
@@ -108,26 +116,31 @@ Ticker
       </div>  
     </div>
 
-    <div class="row">
-      <div class="square">
-        <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}" id="revenue_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" alt="Annual Revenue"/>
-        <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="revenue_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Rev_Modal" alt="Quarterly Revenue"/>
-      </div>
-      <div class="square">
-        <img src="data:image/png;base64, {{ overview.net_income_annual_graph|safe }}" id="netincome_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_NetIncome_Modal" alt="Net Income Annual"/>
-        <img src="data:image/png;base64, {{ overview.net_income_quarterly_graph|safe }}" id="netincome_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_NetIncome_Modal" alt="Net Income Quarterly"/>  
-      </div>
-      <div class="square">
-        <img src="data:image/png;base64, {{ overview.earnings_annual_graph|safe }}" id="earnings_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Earnings_Modal" alt="Earnings Annual"/>
-        <img src="data:image/png;base64, {{ overview.earnings_quarterly_graph|safe }}" id="earnings_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Earnings_Modal" alt="Earnings Quarterly"/>  
-      </div>    
-    </div>
+    {% comment %} <div style="height: 300px; width: 400px;">
+    <canvas id="canvas_test" ></canvas>
+    </div> {% endcomment %}
 
     <div class="row">
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.assets_liabilities_annual_graph|safe }}" id="assets_liabilities_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_AssLia_Modal" alt="Annual Assets Liabilities"/>
-        <img src="data:image/png;base64, {{ overview.assets_liabilities_quarterly_graph|safe }}" id="assets_liabilities_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_AssLia_Modal" alt="Quarterly Assets Liabilities"/>
+        <canvas id="revenue_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" alt="Annual Revenue"></canvas>
+        <canvas id="revenue_quarterly" type="button" data-bs-toggle="modal" data-bs-target="#Qua_Rev_Modal" alt="Quarterly Revenue" class="d-none"></canvas>
       </div>
+      <div class="square">
+        <canvas id="netincome_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_NetIncome_Modal" alt="Net Income Annual"></canvas>
+        <canvas id="netincome_quarterly" type="button"  data-bs-toggle="modal" data-bs-target="#Qua_NetIncome_Modal" alt="Net Income Quarterly" class="d-none"></canvas>  
+      </div>
+      <div class="square">
+        <canvas id="earnings_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Earnings_Modal" alt="Earnings Annual"></canvas>
+        <canvas id="earnings_quarterly" type="button"  data-bs-toggle="modal" data-bs-target="#Qua_Earnings_Modal" alt="Earnings Quarterly" class="d-none"></canvas>  
+      </div> 
+      <div class="square">
+        <canvas id="assets_liabilities_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_AssLia_Modal" alt="Annual Assets Liabilities"></canvas>
+        <canvas id="assets_liabilities_quarterly" type="button" data-bs-toggle="modal" data-bs-target="#Qua_AssLia_Modal" alt="Quarterly Assets Liabilities" class="d-none"></canvas>
+      </div>   
+    </div>
+
+    <div class="row">
+      
       <div class="square">
         <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}" id="debt_to_cash_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_DebtCash_Modal" alt="Debt to Cash Annual"/>
         <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="debt_to_cash_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_DebtCash_Modal" alt="Debt to Cash Quarterly"/>  
@@ -136,15 +149,6 @@ Ticker
         <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="prices_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Prices_Modal" alt="Prices 1y"/>
         <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="prices_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Prices_Modal" alt="Prices 90days"/>
       </div>   
-    </div>
-
-    <div style="height: 500px; width: 1000px; padding: 10px;">
-      <canvas id="canvasRevenueAnnual" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" ></canvas>
-    </div>
-
-    <div>
-      <p>Test chart JS2</p>
-      <canvas id="canvasNetIncomeAnnual"></canvas>
     </div>
 
     <div class="row" style="text-align: justify; padding: 30px;">
@@ -168,9 +172,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="1" data-image-1-id="image1-1" data-image-2-id="image2-1">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <canvas id="canvasRevenueAnnualBig" id="image1-1"></canvas>
-            {% comment %} <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}"  id="image1-1" class="img-fluid" alt="Annual Revenue"/> {% endcomment %}
-            <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="image2-1" class="img-fluid d-none" alt="Quarterly Revenue"/>
+            <canvas id="image1-1" alt="Annual Revenue"></canvas>
+            <canvas id="image2-1" alt="Quarterly Revenue" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -192,8 +195,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="2" data-image-1-id="image1-2" data-image-2-id="image2-2">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="image1-2" class="img-fluid" alt="Quarterly Revenue"/>
-          <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}" id="image2-2" class="img-fluid d-none" alt="Annual Revenue"/>
+            <canvas id="image1-2" alt="Quarterly Revenue"></canvas>
+            <canvas id="image2-2" alt="Annual Revenue" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -215,8 +218,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="3" data-image-1-id="image1-3" data-image-2-id="image2-3">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.net_income_annual_graph|safe }}"  id="image1-3" class="img-fluid" alt="Annual Net Income"/>
-            <img src="data:image/png;base64, {{ overview.net_income_quarterly_graph|safe }}" id="image2-3" class="img-fluid d-none" alt="Quarterly Net Income"/>
+            <canvas id="image1-3" alt="Annual Net Income"></canvas>
+            <canvas id="image2-3" alt="Quarterly Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -238,8 +241,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="4" data-image-1-id="image1-4" data-image-2-id="image2-4">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.net_income_quarterly_graph|safe }}" id="image1-4" class="img-fluid" alt="Annual Net Income"/>
-          <img src="data:image/png;base64, {{ overview.net_income_annual_graph|safe }}" id="image2-4" class="img-fluid d-none" alt="Quarterly Net Income"/>
+          <canvas id="image1-4" alt="Quarterly Net Income"></canvas>
+          <canvas id="image2-4" alt="Annual Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -261,8 +264,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="5" data-image-1-id="image1-5" data-image-2-id="image2-5">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.earnings_annual_graph|safe }}"  id="image1-5" class="img-fluid" alt="Annual Net Income"/>
-            <img src="data:image/png;base64, {{ overview.earnings_quarterly_graph|safe }}" id="image2-5" class="img-fluid d-none" alt="Quarterly Net Income"/>
+            <canvas  id="image1-5" alt="Annual Net Income"></canvas>
+            <canvas id="image2-5" alt="Quarterly Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -284,8 +287,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="6" data-image-1-id="image1-6" data-image-2-id="image2-6">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.earnings_quarterly_graph|safe }}" id="image1-6" class="img-fluid" alt="Annual Net Income"/>
-          <img src="data:image/png;base64, {{ overview.earnings_annual_graph|safe }}" id="image2-6" class="img-fluid d-none" alt="Quarterly Net Income"/>
+          <canvas id="image1-6" alt="Annual Net Income"></canvas>
+          <canvas id="image2-6" alt="Quarterly Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -307,8 +310,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="7" data-image-1-id="image1-7" data-image-2-id="image2-7">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.assets_liabilities_annual_graph|safe }}"  id="image1-7" class="img-fluid" alt="Annual Assets and Liabilities"/>
-            <img src="data:image/png;base64, {{ overview.assets_liabilities_quarterly_graph|safe }}" id="image2-7" class="img-fluid d-none" alt="Quarterly Assets and Liabilities"/>
+            <canvas id="image1-7" alt="Annual Assets and Liabilities"></canvas>
+            <canvas id="image2-7" alt="Quarterly Assets and Liabilities" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -330,8 +333,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="8" data-image-1-id="image1-8" data-image-2-id="image2-8">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.assets_liabilities_quarterly_graph|safe }}" id="image1-8" class="img-fluid" alt="Quarterly Net Income"/>
-          <img src="data:image/png;base64, {{ overview.assets_liabilities_annual_graph|safe }}" id="image2-8" class="img-fluid d-none" alt="Annual Net Income"/>
+            <canvas id="image1-8" alt="Quarterly Assets and Liabilities"></canvas>
+            <canvas id="image2-8" alt="Annual Assets and Liabilities" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -447,87 +450,6 @@ Ticker
     </div>
   </div>
 
-  {{ overview|json_script:"overviewId" }}
-
- 
-
-  {% comment %} {% for data in overview %} {{ overview.revenue_list_annual }} {% endfor %} {% endcomment %}
-
-  <script>
-    
-    const overviewObject = JSON.parse(document.getElementById('overviewId').textContent);
-    
-    
-
-    const canvasRevenueAnnual = document.getElementById('canvasRevenueAnnual');
-    canvasRevenueAnnual.style.backgroundColor = "white";
-    canvasRevenueAnnual.style.borderRadius = "25px";
-    const revenueAnnual = overviewObject.revenue_list_annual;
-    const incomeAnnualDates = overviewObject.income_annual_dates;
-    new Chart(canvasRevenueAnnual, {
-      type: 'bar',
-      data: {
-        labels: incomeAnnualDates,
-        datasets: [{
-          label: '$',
-          data: revenueAnnual,
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-    const canvasRevenueAnnualBig = document.getElementById('canvasRevenueAnnualBig');
-    new Chart(canvasRevenueAnnualBig, {
-      type: 'bar',
-      data: {
-        labels: incomeAnnualDates,
-        datasets: [{
-          label: '$',
-          data: revenueAnnual,
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-    const canvasNetIncomeAnnual = document.getElementById('canvasNetIncomeAnnual');
-    const netIncomeAnnual = overviewObject.net_income_annual;
-    new Chart(canvasNetIncomeAnnual, {
-      type: 'bar',
-      data: {
-        labels: incomeAnnualDates,
-        datasets: [{
-          label: '$',
-          data: netIncomeAnnual,
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-
-
-
-  </script>
 
     
 {% endblock %}

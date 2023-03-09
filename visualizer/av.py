@@ -26,6 +26,13 @@ def get_stock_data(ticker): # Ticker symbol, or tid, gets passed in here.
     #stock_data["cash_flow"] = cash_flow
 
     earnings = requests.get(f'https://www.alphavantage.co/query?function=EARNINGS&symbol={ticker}&apikey={APIKEY}&outputsize=full').json()
+    
+    if "Error Message" in earnings:
+        print(earnings)
+        print("error at final api AV request")
+        invalid_api = "invalid_api"
+        return invalid_api
+    
     stock_data["earnings"] = earnings
-
+    
     return stock_data

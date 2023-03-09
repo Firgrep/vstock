@@ -118,7 +118,7 @@ def net_income_annual_graph():
 def net_income_quarterly_graph():
     
     plt.figure(figsize=(10,8))
-    plt.bar(range(len(income_quarterly_dates)), net_income_quarerly, color="ForestGreen")
+    plt.bar(range(len(income_quarterly_dates)), net_income_quarterly, color="ForestGreen")
     plt.title("Quarterly Income", fontsize=title_fontsize)
     ax = plt.subplot()
     ax.set_xticks(range(len(income_quarterly_dates)))
@@ -356,6 +356,11 @@ def roic(years):
     
     return roic_val_unnested
 
+def earnings_beat_difference(eps, esti_eps):
+    beat_difference = np.subtract(eps, esti_eps)
+    beat_diff_json_ready = beat_difference.tolist()
+    return beat_diff_json_ready
+
 def produce_graphs(entry):
     
     #--------------------------------------------------------
@@ -426,9 +431,9 @@ def produce_graphs(entry):
     revenue_list_quarterly_str = [rev["totalRevenue"] for rev in income_quarterly]
     revenue_list_quarterly = string_to_float_list(revenue_list_quarterly_str)
 
-    global net_income_quarerly
+    global net_income_quarterly
     net_income_quarterly_str = [inc["netIncome"] for inc in income_quarterly]
-    net_income_quarerly = string_to_float_list(net_income_quarterly_str)
+    net_income_quarterly = string_to_float_list(net_income_quarterly_str)
 
     # -  BALANCE SHEET VARIABLES
     # -- ANNUAL
@@ -539,10 +544,35 @@ def produce_graphs(entry):
     # overview["debt_to_cash_annual_graph"] = debt_to_cash_annual_graph(10)
     # overview["debt_to_cash_quarterly_graph"] = debt_to_cash_quarterly_graph(10)
 
+    earnings_quarterly_beat_difference = earnings_beat_difference(earnings_quarterly_reported_EPS, earnings_quarterly_estimated_EPS)
+
     roic_graph, roic_range = roic(10)
     overview["ReturnOnInvestedCapital"] = round(mean(roic_range), 1)
     overview["roic_graph"] = roic_graph
+
+
     overview["revenue_list_annual"] = revenue_list_annual
+    overview["revenue_list_quarterly"] = revenue_list_quarterly
+
     overview["income_annual_dates"] = income_annual_dates
-    overview["net_income_annual"] = net_income_annual
+    overview["income_quarterly_dates"] = income_quarterly_dates
+    overview["net_income_annual"] = net_income_annual  
+    overview["net_income_quarterly"] = net_income_quarterly
+
+    overview["earnings_annual_dates"] = earnings_annual_dates
+    overview["earnings_annual_reported_EPS"] = earnings_annual_reported_EPS
+    overview["earnings_quarterly_reported_dates"] = earnings_quarterly_reported_dates
+    overview["earnings_quarterly_reported_EPS"] = earnings_quarterly_reported_EPS
+    overview["earnings_quarterly_estimated_EPS"] = earnings_quarterly_estimated_EPS
+    overview["earnings_quarterly_beat_difference"] = earnings_quarterly_beat_difference
+
+    overview["balance_annual_time"] = balance_annual_time_str
+    overview["balance_annual_assets"] = balance_annual_assets
+    overview["balance_annual_liabilities"] = balance_annual_liabilities
+    overview["balance_annual_shareholder_equity"] = balance_annual_shareholder_equity
+    overview["balance_quarterly_time"] = balance_quarterly_time_str
+    overview["balance_quarterly_assets"] = quarterly_assets
+    overview["balance_quarterly_liabilities"] = quarterly_liabilities
+    overview["balance_quarterly_shareholder_equity"] = quarterly_shareholder_equity
+
     return overview

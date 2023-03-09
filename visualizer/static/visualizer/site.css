@@ -23,6 +23,10 @@ img, ::after, ::before {
     border-radius: 25px;
 }
 
+.test {
+    
+    color: rgba(3, 187, 3, 0.549)
+}
 
 
 .content {
@@ -32,9 +36,11 @@ img, ::after, ::before {
 }
 
 .row {
+    gap: 13px;
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .intro-content {
@@ -58,8 +64,8 @@ img, ::after, ::before {
 
 .square {
     display: flex;
-    max-height: 390px;
-    max-width: 390px;
+    max-height: 450px;
+    max-width: 450px;
 }
 
 .holder {
