@@ -9,3 +9,8 @@ class StockData(models.Model):
 
     def __str__(self):
         return self.symbol
+    
+class IndexData(models.Model):
+    symbol = models.TextField(null=True)
+    date_recorded = models.DateTimeField(default=timezone.now)
+    data = models.JSONField(null=True)

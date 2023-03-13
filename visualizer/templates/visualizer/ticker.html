@@ -15,10 +15,10 @@ Ticker
 <br>
 <div class="container back-box">
   <div class="holder">
-    <div class="row">
-      <div class="square-bg" style="align-items: center;">
-        <div>
-          <img src="data:image/png;base64, {{ overview.roic_graph|safe }}" id="roic_annual" class="img-fluid" alt="Roic Annual"/>
+    <div class="row" id="firstRow">
+      <div class="square-bg" style="align-items: center; justify-content: center;">
+        <div style="height: 300px; width: 470px; margin-top: 25px;">
+          <canvas id="roic_annual" alt="Roic Annual"></canvas>
         </div>
       </div>
 
@@ -110,9 +110,9 @@ Ticker
     <div class="row">
       <div class="square text-center">
         <br>
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example" style="margin-bottom: 20px">
           <button type="button" class="btn btn-light btn-sml" id="switch-button">Annual/Quarterly</button>
-        </div>  
+        </div>
       </div>  
     </div>
 
@@ -136,19 +136,15 @@ Ticker
       <div class="square">
         <canvas id="assets_liabilities_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_AssLia_Modal" alt="Annual Assets Liabilities"></canvas>
         <canvas id="assets_liabilities_quarterly" type="button" data-bs-toggle="modal" data-bs-target="#Qua_AssLia_Modal" alt="Quarterly Assets Liabilities" class="d-none"></canvas>
-      </div>   
-    </div>
-
-    <div class="row">
-      
-      <div class="square">
-        <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}" id="debt_to_cash_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_DebtCash_Modal" alt="Debt to Cash Annual"/>
-        <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="debt_to_cash_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_DebtCash_Modal" alt="Debt to Cash Quarterly"/>  
       </div>
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="prices_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Prices_Modal" alt="Prices 1y"/>
-        <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="prices_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Prices_Modal" alt="Prices 90days"/>
-      </div>   
+        <canvas id="debt_to_cash_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_DebtCash_Modal" alt="Debt to Cash Annual"></canvas>
+        <canvas id="debt_to_cash_quarterly" type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#Qua_DebtCash_Modal" alt="Debt to Cash Quarterly"></canvas>
+      </div>  
+      <div class="square">
+        <canvas id="prices_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Prices_Modal" alt="Prices 1y"></canvas>
+        <canvas id="prices_quarterly" type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#Qua_Prices_Modal" alt="Prices 90days"></canvas>
+      </div>  
     </div>
 
     <div class="row" style="text-align: justify; padding: 30px;">
@@ -356,8 +352,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="9" data-image-1-id="image1-9" data-image-2-id="image2-9">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}"  id="image1-9" class="img-fluid" alt="Annual Debt to Cash"/>
-            <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="image2-9" class="img-fluid d-none" alt="Quarterly Debt to Cash"/>
+            <canvas id="image1-9" alt="Annual Debt to Cash"></canvas>
+            <canvas id="image2-9" alt="Quarterly Debt to Cash" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -379,8 +375,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="10" data-image-1-id="image1-10" data-image-2-id="image2-10">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="image1-10" class="img-fluid" alt="Quarterly Debt to Cash"/>
-          <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}" id="image2-10" class="img-fluid d-none" alt="Annual Debt to Cash"/>
+          <canvas id="image1-10" alt="Quarterly Debt to Cash"></canvas>
+          <canvas id="image2-10" alt="Annual Debt to Cash" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -407,10 +403,10 @@ Ticker
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.price_graph1255|safe }}" id="A_prices_1255" class="img-fluid image-toggle1" alt="Prices 5y" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="A_prices_251" class="img-fluid image-toggle1" alt="Prices 1y"/>
-            <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="A_prices_90" class="img-fluid image-toggle1" alt="Prices 90days" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph30|safe }}" id="A_prices_30" class="img-fluid image-toggle1" alt="Prices 30days" style="display:none;"/>
+            <canvas id="A_prices_1255" class="image-toggle1" alt="Prices 5y" style="display:none;"></canvas>
+            <canvas id="A_prices_251" class="image-toggle1" alt="Prices 1y"></canvas>
+            <canvas id="A_prices_90" class="image-toggle1" alt="Prices 90days" style="display:none;"></canvas>
+            <canvas id="A_prices_30" class="image-toggle1" alt="Prices 30days" style="display:none;"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -437,10 +433,10 @@ Ticker
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.price_graph1255|safe }}" id="B_prices_1255" class="img-fluid image-toggle2" alt="Prices 5y" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="B_prices_251" class="img-fluid image-toggle2" alt="Prices 1y" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="B_prices_90" class="img-fluid image-toggle2" alt="Prices 90days"/>
-            <img src="data:image/png;base64, {{ overview.price_graph30|safe }}" id="B_prices_30" class="img-fluid image-toggle2" alt="Prices 30days" style="display:none;"/>
+            <canvas id="B_prices_1255" class="image-toggle2" alt="Prices 5y" style="display:none;"></canvas>
+            <canvas id="B_prices_251" class="image-toggle2" alt="Prices 1y" style="display:none;"></canvas>
+            <canvas id="B_prices_90" class="image-toggle2" alt="Prices 90days"></canvas>
+            <canvas id="B_prices_30" class="image-toggle2" alt="Prices 30days" style="display:none;"></canvas>
           </div>
         </div>
         <div class="modal-footer">

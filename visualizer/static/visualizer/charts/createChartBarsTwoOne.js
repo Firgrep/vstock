@@ -1,15 +1,21 @@
 import { formatToUnits } from "../utils/formatToUnits.js";
 
-export function createChartBalance (ctx, { labels, data, titleText, titleColor,
+export function createChartBarsTwoOne (ctx, { labels, data, titleText, titleColor,
                                     titleSize, barColor, barBorderColor, canvasBackground,
                                     canvasBorderRadius, canvasBoxShadow, dataSecond, 
                                     dataThird, barColorSecond, barBorderColorSecond,
-                                    barColorThird, barBorderColorThird }, isModal=false) {
+                                    barColorThird, barBorderColorThird, sliceStart,
+                                    sliceEnd, dataLabel, dataLabelSecond,
+                                    dataLabelThird }, isModal=false) {
 
     ctx.style.backgroundColor = canvasBackground;
     ctx.style.borderRadius = canvasBorderRadius;
     if (isModal === false) {
         ctx.style.boxShadow = canvasBoxShadow;
+        labels = labels.slice(sliceStart, sliceEnd);
+        data = data.slice(sliceStart, sliceEnd);
+        dataSecond = dataSecond.slice(sliceStart, sliceEnd);
+        dataThird = dataThird.slice(sliceStart, sliceEnd);
     }
 
     const graph = new Chart(ctx, {
@@ -18,7 +24,7 @@ export function createChartBalance (ctx, { labels, data, titleText, titleColor,
             labels: labels,
             datasets: [{
                 categoryPercentage: 0.6,
-                label: "Liabilities",
+                label: dataLabel,
                 data: data,
                 backgroundColor: barColor,
                 borderColor: barBorderColor,
@@ -27,7 +33,7 @@ export function createChartBalance (ctx, { labels, data, titleText, titleColor,
             },
             {
                 categoryPercentage: 0.6,
-                label: "Equity",
+                label: dataLabelSecond,
                 data: dataSecond,
                 backgroundColor: barColorSecond,
                 borderColor: barBorderColorSecond,
@@ -37,7 +43,7 @@ export function createChartBalance (ctx, { labels, data, titleText, titleColor,
             {
                 barPercentage: 1.12,
                 categoryPercentage: 0.5, 
-                label: "Assets",
+                label: dataLabelThird,
                 data: dataThird,
                 backgroundColor: barColorThird,
                 borderColor: barBorderColorThird,

@@ -1,41 +1,49 @@
 import { formatToUnits } from "../utils/formatToUnits.js";
 
-export function createChartBarSimple (ctx, { labels, data, titleText, titleColor,
-                                    titleSize, barColor, barBorderColor, canvasBackground,
-                                    canvasBorderRadius, canvasBoxShadow, sliceStart,
-                                    sliceEnd }, isModal=false) {
+export function createChartLineRoic (ctx, { labels, data, titleColor, titleText,
+                                    titleSize, backgroundColor, borderColor, canvasBackground,
+                                    canvasBorderRadius, canvasBoxShadow }) {
 
     ctx.style.backgroundColor = canvasBackground;
     ctx.style.borderRadius = canvasBorderRadius;
-    if (isModal === false) {
-        ctx.style.boxShadow = canvasBoxShadow;
-        labels = labels.slice(sliceStart, sliceEnd);
-        data = data.slice(sliceStart, sliceEnd);
-    }
+
+    // labels = labels.slice(0, sliceEnd);
+    // data = data.slice(0, sliceEnd);
+
+
+    // if (isModal === false) {
+    //     ctx.style.boxShadow = canvasBoxShadow;
+    // }
 
     const graph = new Chart(ctx, {
-        type: "bar",
+        type: "line",
         data: {
             labels: labels,
             datasets: [{
                 data: data,
-                backgroundColor: [
-                    barColor
-                ],
-                borderColor: [
-                    barBorderColor
-                ],
-                borderWidth: 2
+                label: `1y RoIC: ${data[0].toFixed(2)}%`,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                pointBorderColor: "transparent",
+                borderWidth: 2,
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgba(0, 224, 224, 0.2)',
+                //     below: 'rgb(0, 0, 255)'
+                // }
             }],
         },
         options: {
+            interaction: {
+                intersect: false,
+                mode: "index"
+            },
             scales: {
                 y: {
                     beginAtZero: true,
                     ticks: {
                         callback: function(value, index, ticks) {
-                            value = formatToUnits(value, 0);
-                            return "$" + value;
+                            return value + "%";
                         }
                     }
                 },
@@ -43,7 +51,8 @@ export function createChartBarSimple (ctx, { labels, data, titleText, titleColor
                     grid: {
                         display: false
                     },
-                    reverse: true
+                    reverse: true,
+                    offset: true
                 }
             },
             plugins: {
@@ -56,17 +65,18 @@ export function createChartBarSimple (ctx, { labels, data, titleText, titleColor
                     }
                 },
                 legend: {
-                    display: false
+                    display: true
                 },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            let label = context.dataset.label || "";
+                            // context.dataset.label
+                            let label = "RoIC";
                             if (label) {
                                 label += ": ";
                             }
                             if (context.parsed.y !== null) {
-                                label += "$" + formatToUnits(context.parsed.y, 2);
+                                label += context.parsed.y.toFixed(2) + "%";
                             }
                             return label;
                         }

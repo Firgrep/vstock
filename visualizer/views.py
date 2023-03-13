@@ -6,7 +6,7 @@ from django.core.cache import cache
 from .models import StockData
 from .forms import TickerForm
 from .av import get_stock_data
-from .fns import produce_graphs
+from .fns import process_data
 
 import json
 import requests
@@ -49,7 +49,7 @@ def ticker(request, tid):
 
             # The existing data is checked against current time. If older than 24 hours,
             # the data will be updated with a fresh API call.
-            if (now - entry.date_recorded).days > 2:
+            if (now - entry.date_recorded).days > 1:
                 print("Old data detected, calling API and updating record.")
                 if cache.get(key_av):
                     print("Max API calls exceeded. Redirecting error page.")
@@ -62,7 +62,7 @@ def ticker(request, tid):
 
             # Calling graph functions with existing or updated data, which will be
             # stored as static files for the templates to use.
-            overview = produce_graphs(entry.data)
+            overview = process_data(entry.data)
             context["overview"] = overview
             return render(request, 'visualizer/ticker.html', context)
 
@@ -83,7 +83,7 @@ def ticker(request, tid):
         return HttpResponseRedirect(ticker_invalid)
 
     temp = StockData(symbol=tid, data=json.dumps(stock_data))
-    overview = produce_graphs(temp.data)
+    overview = process_data(temp.data)
     context["overview"] = overview
     temp.save() 
     return render(request, 'visualizer/ticker.html', context)

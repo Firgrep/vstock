@@ -1,3 +1,35 @@
+@media only screen and (max-width: 1200px) {
+    #firstRow {
+        min-width: 200px !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .background {
+      background-image:  url("/static/visualizer/ticker_background.png");
+    }
+    
+    video {
+     display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-brand.abs
+        {
+            position: absolute;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+}
+
+@media (max-width: 300px) {
+    #myTabContent {height: 800px;}
+}
+
+
 body {
     background: LightBlue;
     padding-bottom: 70px;
@@ -25,7 +57,7 @@ img, ::after, ::before {
 
 .test {
     
-    color: rgba(3, 187, 3, 0.549)
+    color: rgba(0, 224, 224, 0.549)
 }
 
 
@@ -64,8 +96,8 @@ img, ::after, ::before {
 
 .square {
     display: flex;
-    max-height: 450px;
-    max-width: 450px;
+    max-height: 500px;
+    max-width: 550px;
 }
 
 .holder {
@@ -75,9 +107,7 @@ img, ::after, ::before {
     align-content: center;
 }
 
-@media (max-width: 300px) {
-    #myTabContent {height: 800px;}
-}
+
 
 .error-content {
     height: 100%; 
@@ -106,16 +136,6 @@ video {
     z-index: -100;
 }
 
-@media only screen and (max-width: 600px) {
-    .background {
-      background-image:  url("/static/visualizer/ticker_background.png");
-    }
-    
-    video {
-     display: none;
-    }
-}
-
 .intro-text {
     color: white;
     text-shadow: 2px 2px 2px #000000;
@@ -123,6 +143,10 @@ video {
 
 h5 {
     color: white;
+}
+
+#firstRow {
+    min-width: 1150px;
 }
 
 #progressMessage {
@@ -172,16 +196,7 @@ h5 {
     height: 40px;
 }
 
-@media (min-width: 768px) {
-    .navbar-brand.abs
-        {
-            position: absolute;
-            width: auto;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-    }
+
     
 #collapseNavbar {
     z-index: 10;
