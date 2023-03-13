@@ -105,6 +105,8 @@ const A_PRICES = O_OVERVIEW.prices;
 const A_PRICE_DATES = O_OVERVIEW.price_dates;
 
 const A_PRICE_INDEX_SPY = O_OVERVIEW.market_indices.spy;
+const A_PRICE_INDEX_QQQ = O_OVERVIEW.market_indices.qqq;
+const A_PRICE_INDEX_VTHR = O_OVERVIEW.market_indices.vthr;
 
 
 // |-- PARTICULAR LEVEL CHART OPTION OBJECTS -
@@ -336,13 +338,19 @@ const _oOptionsPrices = {
     labels: A_PRICE_DATES,
     data: A_PRICES,
     dataSecond: A_PRICE_INDEX_SPY,
+    dataThird: A_PRICE_INDEX_QQQ,
+    dataFourth: A_PRICE_INDEX_VTHR,
     titleColor: S_TITLE_COLOR,
     titleSize: I_TITLE_FONT_SIZE,
     symbol: S_SYMBOL,
     backgroundColor: "rgba(0, 224, 224, 0.3)",
-    borderColor: "rgba(0, 224, 224, 0.6)",
+    borderColor: "rgba(0, 224, 224, 0.7)",
     backgroundColorSecond: "rgba(250, 54, 47, 0.3)",
-    borderColorSecond: "rgba(250, 54, 47, 0.6)",
+    borderColorSecond: "rgba(250, 54, 47, 0.7)",
+    backgroundColorThird: "rgba(218, 165, 32, 0.3)",
+    borderColorThird: "rgba(218, 165, 32, 0.7)",
+    backgroundColorFourth: "rgba(67, 201, 74, 0.3)", 
+    borderColorFourth: "rgba(67, 201, 74, 0.7)",
     canvasBackground: S_CANVAS_BACKGROUND,
     canvasBorderRadius: S_CANVAS_BORDER_RADIUS,
     canvasBoxShadow: S_CANVAS_BOX_SHADOW
@@ -351,51 +359,61 @@ const _oOptionsPrices = {
 
 // |-- SINGULAR LEVEL CHART DESIGNATION AND FUNCTION CALL
 
-createChartLineRoic(O_CANVAS_ROIC, _oOptionsRoic);
+setTimeout(() => {
+    createChartLineRoic(O_CANVAS_ROIC, _oOptionsRoic);
+}, 100);
 
-createChartBarSimple(O_CANVAS_REVENUE_ANNUAL, _oOptionsRevenueAnnual);
-createChartBarSimple(O_CANVAS_REVENUE_ANNUAL_MODAL_1_1, _oOptionsRevenueAnnual, B_IS_MODAL);
-createChartBarSimple(O_CANVAS_REVENUE_ANNUAL_MODAL_2_2, _oOptionsRevenueAnnual, B_IS_MODAL);
-createChartBarSimple(O_CANVAS_REVENUE_QUARTERLY, _oOptionsRevenueQuarterly);
-createChartBarSimple(O_CANVAS_REVENUE_QUARTERLY_MODAL_1_2, _oOptionsRevenueQuarterly, B_IS_MODAL);
-createChartBarSimple(O_CANVAS_REVENUE_QUARTERLY_MODAL_2_1, _oOptionsRevenueQuarterly, B_IS_MODAL);
+setTimeout(() => {
+    createChartBarSimple(O_CANVAS_REVENUE_ANNUAL, _oOptionsRevenueAnnual);
+    createChartBarSimple(O_CANVAS_NETINCOME_ANNUAL, _oOptionsIncomeAnnual);
+    createChartPointSimple(O_CANVAS_EARNINGS_ANNUAL, _oOptionsEpsAnnualCompact);
+    createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_ANNUAL, _oOptionsAssetsLiabilitesAnnual);
+    createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_ANNUAL, _oOptionsDebtToCashAnnual);
+    createChartLinePrices(O_CANVAS_PRICES_ANNUAL, 252, _oOptionsPrices);
+}, 150);
 
-createChartBarSimple(O_CANVAS_NETINCOME_ANNUAL, _oOptionsIncomeAnnual);
-createChartBarSimple(O_CANVAS_NETINCOME_ANNUAL_MODAL_1_3, _oOptionsIncomeAnnual, B_IS_MODAL);
-createChartBarSimple(O_CANVAS_NETINCOME_ANNUAL_MODAL_2_4, _oOptionsIncomeAnnual, B_IS_MODAL);
-createChartBarSimple(O_CANVAS_NETINCOME_QUARTERLY, _oOptionsIncomeQuarterly);
-createChartBarSimple(O_CANVAS_NETINCOME_QUARTERLY_MODAL_2_3, _oOptionsIncomeQuarterly, B_IS_MODAL);
-createChartBarSimple(O_CANVAS_NETINCOME_QUARTERLY_MODAL_1_4, _oOptionsIncomeQuarterly, B_IS_MODAL);
+setTimeout(() => {
+    createChartBarSimple(O_CANVAS_REVENUE_QUARTERLY, _oOptionsRevenueQuarterly);
+    createChartBarSimple(O_CANVAS_NETINCOME_QUARTERLY, _oOptionsIncomeQuarterly);
+    createChartPointGreenRed(O_CANVAS_EARNINGS_QUARTERLY, _oOptionsEpsQuarterlyCompact);
+    createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_QUARTERLY, _oOptionsAssetsLiabilitesQuarterly);
+    createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_QUARTERLY, _oOptionsDebtToCashQuarterly);
+    createChartLinePrices(O_CANVAS_PRICES_QUARTERLY, 62, _oOptionsPrices);
+}, 200);
 
-createChartPointSimple(O_CANVAS_EARNINGS_ANNUAL, _oOptionsEpsAnnualCompact);
-createChartPointSimple(O_CANVAS_EARNINGS_ANNUAL_MODAL_1_5, _oOptionsEpsAnnualEnlarged, B_IS_MODAL);
-createChartPointSimple(O_CANVAS_EARNINGS_ANNUAL_MODAL_2_6, _oOptionsEpsAnnualEnlarged, B_IS_MODAL);
-createChartPointGreenRed(O_CANVAS_EARNINGS_QUARTERLY, _oOptionsEpsQuarterlyCompact);
-createChartPointGreenRed(O_CANVAS_EARNINGS_QUARTERLY_MODAL_2_5, _oOptionsEpsQuarterlyEnlarged, B_IS_MODAL);
-createChartPointGreenRed(O_CANVAS_EARNINGS_QUARTERLY_MODAL_1_6, _oOptionsEpsQuarterlyEnlarged, B_IS_MODAL);
+setTimeout(() => {
+    createChartBarSimple(O_CANVAS_REVENUE_ANNUAL_MODAL_1_1, _oOptionsRevenueAnnual, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_REVENUE_ANNUAL_MODAL_2_2, _oOptionsRevenueAnnual, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_REVENUE_QUARTERLY_MODAL_1_2, _oOptionsRevenueQuarterly, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_REVENUE_QUARTERLY_MODAL_2_1, _oOptionsRevenueQuarterly, B_IS_MODAL);
 
-createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_ANNUAL, _oOptionsAssetsLiabilitesAnnual);
-createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_ANNUAL_MODAL_1_7, _oOptionsAssetsLiabilitesAnnual, B_IS_MODAL);
-createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_ANNUAL_MODAL_2_8, _oOptionsAssetsLiabilitesAnnual, B_IS_MODAL);
-createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_QUARTERLY, _oOptionsAssetsLiabilitesQuarterly);
-createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_QUARTERLY_MODAL_2_7, _oOptionsAssetsLiabilitesQuarterly, B_IS_MODAL);
-createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_QUARTERLY_MODAL_1_8, _oOptionsAssetsLiabilitesQuarterly, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_NETINCOME_ANNUAL_MODAL_1_3, _oOptionsIncomeAnnual, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_NETINCOME_ANNUAL_MODAL_2_4, _oOptionsIncomeAnnual, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_NETINCOME_QUARTERLY_MODAL_2_3, _oOptionsIncomeQuarterly, B_IS_MODAL);
+    createChartBarSimple(O_CANVAS_NETINCOME_QUARTERLY_MODAL_1_4, _oOptionsIncomeQuarterly, B_IS_MODAL);
 
-createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_ANNUAL, _oOptionsDebtToCashAnnual);
-createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_ANNUAL_MODAL_1_9, _oOptionsDebtToCashAnnual, B_IS_MODAL);
-createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_ANNUAL_MODAL_2_10, _oOptionsDebtToCashAnnual, B_IS_MODAL);
-createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_QUARTERLY, _oOptionsDebtToCashQuarterly);
-createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_QUARTERLY_MODAL_2_9, _oOptionsDebtToCashQuarterly, B_IS_MODAL);
-createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_QUARTERLY_MODAL_1_10, _oOptionsDebtToCashQuarterly, B_IS_MODAL);
+    createChartPointSimple(O_CANVAS_EARNINGS_ANNUAL_MODAL_1_5, _oOptionsEpsAnnualEnlarged, B_IS_MODAL);
+    createChartPointSimple(O_CANVAS_EARNINGS_ANNUAL_MODAL_2_6, _oOptionsEpsAnnualEnlarged, B_IS_MODAL);
+    createChartPointGreenRed(O_CANVAS_EARNINGS_QUARTERLY_MODAL_2_5, _oOptionsEpsQuarterlyEnlarged, B_IS_MODAL);
+    createChartPointGreenRed(O_CANVAS_EARNINGS_QUARTERLY_MODAL_1_6, _oOptionsEpsQuarterlyEnlarged, B_IS_MODAL);
 
-createChartLinePrices(O_CANVAS_PRICES_ANNUAL, 252, _oOptionsPrices);
-createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_1255, 1259, _oOptionsPrices, B_IS_MODAL);
-createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_251, 251, _oOptionsPrices, B_IS_MODAL);
-createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_90, 90, _oOptionsPrices, B_IS_MODAL);
-createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_30, 30, _oOptionsPrices, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_ANNUAL_MODAL_1_7, _oOptionsAssetsLiabilitesAnnual, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_ANNUAL_MODAL_2_8, _oOptionsAssetsLiabilitesAnnual, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_QUARTERLY_MODAL_2_7, _oOptionsAssetsLiabilitesQuarterly, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_ASSETS_LIABILITIES_QUARTERLY_MODAL_1_8, _oOptionsAssetsLiabilitesQuarterly, B_IS_MODAL);
 
-createChartLinePrices(O_CANVAS_PRICES_QUARTERLY, 90, _oOptionsPrices);
-createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_1255, 1259, _oOptionsPrices, B_IS_MODAL);
-createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_251, 252, _oOptionsPrices, B_IS_MODAL);
-createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_90, 90, _oOptionsPrices, B_IS_MODAL);
-createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_30, 30, _oOptionsPrices, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_ANNUAL_MODAL_1_9, _oOptionsDebtToCashAnnual, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_ANNUAL_MODAL_2_10, _oOptionsDebtToCashAnnual, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_QUARTERLY_MODAL_2_9, _oOptionsDebtToCashQuarterly, B_IS_MODAL);
+    createChartBarsTwoOne(O_CANVAS_DEBT_TO_CASH_QUARTERLY_MODAL_1_10, _oOptionsDebtToCashQuarterly, B_IS_MODAL);
+
+    createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_1255, 1259, _oOptionsPrices, B_IS_MODAL);
+    createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_251, 251, _oOptionsPrices, B_IS_MODAL);
+    createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_90, 90, _oOptionsPrices, B_IS_MODAL);
+    createChartLinePrices(O_CANVAS_PRICES_ANNUAL_MODAL_30, 30, _oOptionsPrices, B_IS_MODAL);
+
+    createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_1255, 1259, _oOptionsPrices, B_IS_MODAL);
+    createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_251, 252, _oOptionsPrices, B_IS_MODAL);
+    createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_90, 90, _oOptionsPrices, B_IS_MODAL);
+    createChartLinePrices(O_CANVAS_PRICES_QUARTERLY_MODAL_30, 30, _oOptionsPrices, B_IS_MODAL);
+}, 1000);

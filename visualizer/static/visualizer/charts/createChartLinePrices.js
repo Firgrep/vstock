@@ -1,26 +1,27 @@
 import { formatToUnits } from "../utils/formatToUnits.js";
 
-export function createChartLinePrices (ctx, sliceEnd=30, { labels, data, titleColor,
+export function createChartLinePrices ( ctx, sliceEnd=30, { labels, data, titleColor,
                                         titleSize, backgroundColor, borderColor, canvasBackground,
                                         canvasBorderRadius, canvasBoxShadow, dataSecond,
                                         backgroundColorSecond, borderColorSecond, symbol,
-                                        dataThird, backgroundColorThird, borderColorThird }, isModal=false) {
+                                        dataThird, backgroundColorThird, borderColorThird,
+                                        dataFourth, backgroundColorFourth, borderColorFourth }, isModal=false) {
 
     function processData(data, comparisonStart) {
-        const dataPercentageIncreases = []
-        const dataComparison = []
-        dataComparison.push(comparisonStart)
+        const dataPercentageIncreases = [];
+        const dataComparison = [];
+        dataComparison.push(comparisonStart);
 
-        const dataReversed = data.reverse()
+        const dataReversed = data.reverse();
         for (let i = 0; i < data.length; i++) {
             dataPercentageIncreases[i] = dataReversed[i + 1] / dataReversed[i];
         }
         for (let i = 0; i < data.length - 1; i++) {
-            let result = dataComparison[i] * dataPercentageIncreases[i]
-            dataComparison[i + 1] = result
+            let result = dataComparison[i] * dataPercentageIncreases[i];
+            dataComparison[i + 1] = result;
         }
         const dataComparisonReversed = dataComparison.reverse();
-        return dataComparisonReversed
+        return dataComparisonReversed;
     }
 
     ctx.style.backgroundColor = canvasBackground;
@@ -29,58 +30,50 @@ export function createChartLinePrices (ctx, sliceEnd=30, { labels, data, titleCo
     labels = labels.slice(0, sliceEnd);
     data = data.slice(0, sliceEnd);
     dataSecond = dataSecond.slice(0, sliceEnd);
-    //dataThird = dataSecond.slice(0, sliceEnd);
+    dataThird = dataThird.slice(0, sliceEnd);
+    dataFourth = dataFourth.slice(0, sliceEnd);
 
-    // DataSecond setup (first comparison)
-    // const dataSecondPercentageIncreases = []
-    let dataSecondComparison = []
-    // dataSecondComparison.push(data[data.length - 1])
+    // Data comparison setup
+    const comparisonStart = data[data.length - 1];
+    let dataGrowth = 0;
 
-    let dataSecondGrowth = 0
-    const comparisonStart = data[data.length - 1]
-    // DataThird setup (second comparison)
-    const dataThirdPercentageIncreases = []
-    const dataThirdComparison = []
-    dataThirdComparison.push(data[data.length - 1])
-    let dataThirdGrowth = 0
+    let dataSecondComparison = [];
+    let dataSecondGrowth = 0;
+
+    let dataThirdComparison = [];
+    let dataThirdGrowth = 0;
+    
+    let dataFourthComparison = [];
+    let dataFourthGrowth = 0;
+
+    dataGrowth = ((data[0] / data[data.length - 1]) - 1) * 100;
     
     if (isModal === false) {
         ctx.style.boxShadow = canvasBoxShadow;
         dataSecond = null;
         dataThird = null;
+        dataFourth = null;
     } else {
-        // DataSecond treatment (first comparison)
-        // const dataSecondReversed = dataSecond.reverse()
-        // for (let i = 0; i < dataSecond.length; i++) {
-        //     dataSecondPercentageIncreases[i] = dataSecondReversed[i + 1] / dataSecondReversed[i];
-        // }
-        // for (let i = 0; i < dataSecond.length - 1; i++) {
-        //     let result = dataSecondComparison[i] * dataSecondPercentageIncreases[i]
-        //     dataSecondComparison[i + 1] = result
-        // }
-        // const dataSecondComparisonReversed = dataSecondComparison.reverse();
-
-        dataSecondComparison = processData(dataSecond, comparisonStart);
-        
-        dataSecondGrowth = ((dataSecondComparison[0] / dataSecondComparison[dataSecondComparison.length - 1]) - 1) * 100;
-
-
-
-
-        // DataThird treatment (first comparison)
-        // // const dataThirdReversed = dataThird.reverse()
-        // // for (let i = 0; i < dataThird.length; i++) {
-        // //     dataThirdPercentageIncreases[i] = dataThirdReversed[i + 1] / dataThirdReversed[i];
-        // // }
-        // // for (let i = 0; i < dataThird.length - 1; i++) {
-        // //     let result = dataThirdComparison[i] * dataThirdPercentageIncreases[i]
-        // //     dataThirdComparison[i + 1] = result
-        // // }
-        // // const dataThirdComparisonReversed = dataThirdComparison.reverse();
-        // // dataThirdGrowth = ((dataThirdComparison[0] / dataThirdComparison[dataThirdComparison.length - 1]) - 1) * 100;
+        // If there's an error at the API call for indices, it should return zero.
+        if (dataSecond !== 0) {
+            dataSecondComparison = processData(dataSecond, comparisonStart);
+            dataSecondGrowth = ((dataSecondComparison[0] / dataSecondComparison[dataSecondComparison.length - 1]) - 1) * 100;
+        } else {
+            dataSecond = null;
+        }
+        if (dataThird !== 0) {
+            dataThirdComparison = processData(dataThird, comparisonStart);
+            dataThirdGrowth = ((dataThirdComparison[0] / dataThirdComparison[dataThirdComparison.length - 1]) - 1) * 100;
+        } else {
+            dataThird = null;
+        }
+        if (dataFourth !== 0) {
+            dataFourthComparison = processData(dataThird, comparisonStart);
+            dataFourthGrowth = ((dataFourthComparison[0] / dataFourthComparison[dataFourthComparison.length - 1]) - 1) * 100;
+        } else {
+            dataFourth = null;
+        }
     }
-
-    //console.log("SPY: ", ((dataSecondComparison[0] / dataSecondComparison[dataSecondComparison.length - 1]) - 1) * 100);
 
     const graph = new Chart(ctx, {
         type: "line",
@@ -89,7 +82,7 @@ export function createChartLinePrices (ctx, sliceEnd=30, { labels, data, titleCo
             datasets: [
                 {
                     data: data,
-                    label: `${symbol}`,
+                    label: `${symbol} [${dataGrowth.toFixed(2)}%]`,
                     backgroundColor: backgroundColor,
                     radius: 0,
                     hoverRadius: 0,
@@ -111,7 +104,27 @@ export function createChartLinePrices (ctx, sliceEnd=30, { labels, data, titleCo
                     borderColor: borderColorSecond,
                     pointBorderColor: "transparent",
                     borderWidth: 2,
-                }
+                },
+                {
+                    data: dataThirdComparison,
+                    label: `QQQ [${dataThirdGrowth.toFixed(2)}%]`,
+                    radius: 0,
+                    hoverRadius: 0,
+                    backgroundColor: backgroundColorThird,
+                    borderColor: borderColorThird,
+                    pointBorderColor: "transparent",
+                    borderWidth: 2,
+                },
+                {
+                    data: dataFourthComparison,
+                    label: `VTHR [${dataFourthGrowth.toFixed(2)}%]`,
+                    radius: 0,
+                    hoverRadius: 0,
+                    backgroundColor: backgroundColorFourth,
+                    borderColor: borderColorFourth,
+                    pointBorderColor: "transparent",
+                    borderWidth: 2,
+                },
             ]
         },
         options: {
@@ -150,7 +163,7 @@ export function createChartLinePrices (ctx, sliceEnd=30, { labels, data, titleCo
                 },
                 subtitle: {
                     display: isModal,
-                    text: "Comparison with funds tracking the indices S&P500, NASDAQ-100 and Russell 3000"
+                    text: "Performance comparison with funds tracking the indices S&P500, NASDAQ-100 and Russell 3000 in the selected time period. Click on the labels below to toggle data."
                 },
                 tooltip: {
                     callbacks: {

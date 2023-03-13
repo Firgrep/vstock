@@ -230,6 +230,14 @@ def process_data(entry):
     spy = json.loads(spy_preload)
     index["spy"] = spy
 
+    qqq_preload = get_index_data("QQQ")
+    qqq = json.loads(qqq_preload)
+    index["qqq"] = qqq
+
+    vthr_preload = get_index_data("VTHR")
+    vthr = json.loads(vthr_preload)
+    index["vthr"] = vthr
+
     overview["market_indices"] = index
 
    

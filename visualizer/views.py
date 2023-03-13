@@ -22,11 +22,17 @@ def home(request):
             return HttpResponseRedirect(ticker)
     else:
         form = TickerForm()
-    return render(request, 'visualizer/home.html', {'form': form})
+        context = {}
+        context["form"] = form
+        symbol_list = list(StockData.objects.all().values_list('symbol', flat=True)) 
+        context["symbol_list"] = symbol_list
+    return render(request, 'visualizer/home.html', context)
 
 def ticker(request, tid):
     context = {}
     context["ticker"] = tid
+    symbol_list = list(StockData.objects.all().values_list('symbol', flat=True)) 
+    context["symbol_list"] = symbol_list
 
     # Before the API is called for fresh data, cache is checked against fixed existing calls
     # within the set parameter. If the cache key is found, function returns a http redirect

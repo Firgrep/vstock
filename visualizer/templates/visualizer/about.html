@@ -13,7 +13,7 @@ About
       <p>Some of the tickers currently in database.</p>
       <div class="d-flex">
         <dl class="mx-auto justify-content-center">
-        {% for symbol in symbol_list|slice:":15" %}
+        {% for symbol in symbol_list|slice:":10" %}
           <dt style="float: left;"> &nbsp&nbsp{{ symbol }}</dt>
         {% endfor %}
         </dl>

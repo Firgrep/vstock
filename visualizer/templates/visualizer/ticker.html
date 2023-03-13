@@ -17,7 +17,7 @@ Ticker
   <div class="holder">
     <div class="row" id="firstRow">
       <div class="square-bg" style="align-items: center; justify-content: center;">
-        <div style="height: 300px; width: 470px; margin-top: 25px;">
+        <div class="container-fluid" style="margin-top: 20px;">
           <canvas id="roic_annual" alt="Roic Annual"></canvas>
         </div>
       </div>
@@ -26,15 +26,15 @@ Ticker
         <div>
           <br>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="KeyData-tab" data-bs-toggle="tab" data-bs-target="#KeyData-tab-pane" type="button" role="tab" aria-controls="KeyData-tab-pane" aria-selected="true">Key Data</button>
+            <li class="nav-item custom-nav-item" role="presentation">
+              <button class="nav-link active custom-nav-link" id="KeyData-tab" data-bs-toggle="tab" data-bs-target="#KeyData-tab-pane" type="button" role="tab" aria-controls="KeyData-tab-pane" aria-selected="true">Key Data</button>
             </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
+            <li class="nav-item custom-nav-item" role="presentation">
+              <button class="nav-link custom-nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
             </li>
           </ul>
           <br>
-          <div class="tab-content" id="myTabContent" style="height: 645px">
+          <div class="tab-content" id="myTabContent">
 
             <div class="tab-pane fade show active" id="KeyData-tab-pane" role="tabpanel" aria-labelledby="KeyData-tab" tabindex="0">
               <h2>{{ overview.Name }} ({{ ticker }})</h2>
@@ -116,10 +116,6 @@ Ticker
       </div>  
     </div>
 
-    {% comment %} <div style="height: 300px; width: 400px;">
-    <canvas id="canvas_test" ></canvas>
-    </div> {% endcomment %}
-
     <div class="row">
       <div class="square">
         <canvas id="revenue_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" alt="Annual Revenue"></canvas>
@@ -157,7 +153,7 @@ Ticker
 
   <!-- Modals -->
   <div class="modal fade" id="Ann_Rev_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Revenue</h5>
@@ -180,7 +176,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_Rev_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Revenue</h5>
@@ -203,7 +199,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_NetIncome_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Net Income</h5>
@@ -226,7 +222,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_NetIncome_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Net Income</h5>
@@ -249,7 +245,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_Earnings_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Earnings</h5>
@@ -272,7 +268,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_Earnings_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Earnings</h5>
@@ -295,7 +291,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_AssLia_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Assets and Liabilities</h5>
@@ -318,7 +314,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_AssLia_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Assets and Liabilities</h5>
@@ -341,7 +337,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_DebtCash_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Debt to Cash</h5>
@@ -364,7 +360,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_DebtCash_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Debt to Cash</h5>
@@ -387,7 +383,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_Prices_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Price Series</h5>
@@ -417,7 +413,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_Prices_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Price Series</h5>
@@ -446,6 +442,4 @@ Ticker
     </div>
   </div>
 
-
-    
 {% endblock %}
