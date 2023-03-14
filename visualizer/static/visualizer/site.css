@@ -6,7 +6,7 @@
 
 @media only screen and (max-width: 600px) {
     .background {
-      background-image:  url("/static/visualizer/ticker_background.png");
+      background-image:  url("/static/visualizer/ticker_background.webp");
     }
     
     video {
@@ -44,12 +44,12 @@
 
 
 body {
-    background: LightBlue;
+    background-image: url("/static/visualizer/ticker_background.webp");
     padding-bottom: 70px;
     background-size: cover;
     padding-right: 0 !important; /* To fix shifting background site content when opening modal */
-    /* background-repeat: no-repeat; */
-    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .modal-open, body {overflow: inherit !important;}  /* To fix shifting background site content when opening modal */
