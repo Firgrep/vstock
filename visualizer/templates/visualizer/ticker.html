@@ -2,139 +2,145 @@
 {% block title %}
 Ticker
 {% endblock %}
+
+{% block head %}
+<script delay src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+{% load static %}
+{{ overview|json_script:"overviewId" }}
+<script delay type="module" src="{% static 'visualizer/ticker-script-main.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 {% load static %}
 <br>
 <div class="container back-box">
   <div class="holder">
-    <div class="row">
-      <div class="square-bg" style="align-items: center;">
-        <div>
-          <img src="data:image/png;base64, {{ overview.roic_graph|safe }}" id="roic_annual" class="img-fluid" alt="Roic Annual"/>
+    <div class="row" id="firstRow">
+      <div class="square-bg" style="align-items: center; justify-content: center;">
+        <div class="container-fluid" style="margin-top: 20px;">
+          <canvas id="roic_annual" alt="Roic Annual"></canvas>
         </div>
       </div>
 
       <div class="square-bg" style="float: right;">
         <div>
-        <br>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="KeyData-tab" data-bs-toggle="tab" data-bs-target="#KeyData-tab-pane" type="button" role="tab" aria-controls="KeyData-tab-pane" aria-selected="true">Key Data</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
-          </li>
-        </ul>
-        <br>
-        <div class="tab-content" id="myTabContent" style="height: 700px">
+          <br>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item custom-nav-item" role="presentation">
+              <button class="nav-link active custom-nav-link" id="KeyData-tab" data-bs-toggle="tab" data-bs-target="#KeyData-tab-pane" type="button" role="tab" aria-controls="KeyData-tab-pane" aria-selected="true">Key Data</button>
+            </li>
+            <li class="nav-item custom-nav-item" role="presentation">
+              <button class="nav-link custom-nav-link" id="CompanyDesc-tab" data-bs-toggle="tab" data-bs-target="#CompanyDesc-tab-pane" type="button" role="tab" aria-controls="CompanyDesc-tab-pane" aria-selected="false">Description</button>
+            </li>
+          </ul>
+          <br>
+          <div class="tab-content" id="myTabContent">
 
-          <div class="tab-pane fade show active" id="KeyData-tab-pane" role="tabpanel" aria-labelledby="KeyData-tab" tabindex="0">
-            <h2>{{ overview.Name }} ({{ ticker }})</h2>
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td colspan="2">{{ overview.AssetType }} ({{ overview.Currency }}) {{ overview.Exchange }}</td>
-                  <td></td>
-                  <td>{{ overview.Sector }}</td>
-                </tr>
-                <tr>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2"><strong>Market Cap: </strong>{{ overview.MarketCapitalization }}</td>
-                  <td><strong>ROIC 5y: </strong>{{ overview.ReturnOnInvestedCapital }}%</td>
-                  <td><strong>EPS: </strong>{{ overview.EPS }}</td>
-                </tr>
-                <tr>
-                  <td colspan="2"><strong>P/E(FWR): </strong>{{ overview.PERatio }} ({{ overview.ForwardPE }})</td>
-                  <td><strong>P/S </strong>{{ overview.PriceToSalesRatioTTM }}</td>
-                  <td><strong>P/B: </strong>{{ overview.PriceToBookRatio }}</td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                  </td>
-                  <td><strong>DPS: </strong>{{ overview.DividendPerShare }}</td>
-                  <td><strong>Div. Yield: </strong>{{ overview.DividendYield }}%</td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                  </td>
-                  <td><strong>Div. Date:<br>&nbsp</strong>{{ overview.DividendDate }}</td>
-                  <td><strong>Ex. Div.:<br>&nbsp</strong>{{ overview.ExDividendDate }}</td>
-                </tr>
-                <tr>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>52 Week High:<br>&nbsp</strong>${{ overview.52WeekHigh }}</td>
-                  <td><strong>52 Week Low:<br>&nbsp</strong>${{ overview.52WeekLow }}</td>
-                  <td><strong>50 Day MA:<br>&nbsp</strong>${{ overview.50DayMovingAverage }}</td>
-                  <td><strong>200 Day MA:<br>&nbsp</strong>${{ overview.200DayMovingAverage }}</td>
-                </tr>
-                <tr>
-                  <td><strong>Beta </strong>{{ overview.Beta }}</td>
-                  <td><strong>Last Price: </strong>${{ overview.LastPrice }}</td>
-                  <td colspan="2"><strong>Analyst Target Price: </strong>${{ overview.AnalystTargetPrice }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            <div class="tab-pane fade show active" id="KeyData-tab-pane" role="tabpanel" aria-labelledby="KeyData-tab" tabindex="0">
+              <h2>{{ overview.Name }} ({{ ticker }})</h2>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan="2">{{ overview.AssetType }} ({{ overview.Currency }}) {{ overview.Exchange }}</td>
+                    <td></td>
+                    <td>{{ overview.Sector }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Market Cap: </strong>{{ overview.MarketCapitalization }}</td>
+                    <td><strong>ROIC 5y: </strong>{{ overview.ReturnOnInvestedCapital }}%</td>
+                    <td><strong>EPS: </strong>{{ overview.EPS }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>P/E(FWR): </strong>{{ overview.PERatio }} ({{ overview.ForwardPE }})</td>
+                    <td><strong>P/S </strong>{{ overview.PriceToSalesRatioTTM }}</td>
+                    <td><strong>P/B: </strong>{{ overview.PriceToBookRatio }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                    </td>
+                    <td><strong>DPS: </strong>{{ overview.DividendPerShare }}</td>
+                    <td><strong>Div. Yield: </strong>{{ overview.DividendYield }}%</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                    </td>
+                    <td><strong>Div. Date:<br>&nbsp</strong>{{ overview.DividendDate }}</td>
+                    <td><strong>Ex. Div.:<br>&nbsp</strong>{{ overview.ExDividendDate }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>52 Week High:<br>&nbsp</strong>${{ overview.52WeekHigh }}</td>
+                    <td><strong>52 Week Low:<br>&nbsp</strong>${{ overview.52WeekLow }}</td>
+                    <td><strong>50 Day MA:<br>&nbsp</strong>${{ overview.50DayMovingAverage }}</td>
+                    <td><strong>200 Day MA:<br>&nbsp</strong>${{ overview.200DayMovingAverage }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Beta </strong>{{ overview.Beta }}</td>
+                    <td><strong>Last Price: </strong>${{ overview.LastPrice }}</td>
+                    <td colspan="2"><strong>Analyst Target Price: </strong>${{ overview.AnalystTargetPrice }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-          <div class="tab-pane fade" id="CompanyDesc-tab-pane" role="tabpanel" aria-labelledby="CompanyDesc-tab" tabindex="0">
-            <h2>{{ overview.Name }} ({{ ticker }})</h2>
-            <ul style="list-style: none">
-              <li><strong>Country: </strong>{{ overview.Country }}</li>
-              <li><strong>Sector: </strong>{{ overview.Sector }}</li>
-              <li><strong>Industry: </strong>{{ overview.Industry }}</li>
-            </ul>
-            <p style="padding-right: 25px; text-align: justify;">{{ overview.Description }}</p>
-            <p>Address: {{ overview.Address }}</p>
+            <div class="tab-pane fade" id="CompanyDesc-tab-pane" role="tabpanel" aria-labelledby="CompanyDesc-tab" tabindex="0">
+              <h2>{{ overview.Name }} ({{ ticker }})</h2>
+              <ul style="list-style: none">
+                <li><strong>Country: </strong>{{ overview.Country }}</li>
+                <li><strong>Sector: </strong>{{ overview.Sector }}</li>
+                <li><strong>Industry: </strong>{{ overview.Industry }}</li>
+              </ul>
+              <p style="padding-right: 25px; text-align: justify;">{{ overview.Description }}</p>
+              <p>Address: {{ overview.Address }}</p>
+            </div>
+              
           </div>
-            
         </div>
       </div>
-      </div>
+
     </div>
 
     <div class="row">
       <div class="square text-center">
         <br>
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example" style="margin-bottom: 20px">
           <button type="button" class="btn btn-light btn-sml" id="switch-button">Annual/Quarterly</button>
-        </div>  
+        </div>
       </div>  
     </div>
 
     <div class="row">
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}" id="revenue_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" alt="Annual Revenue"/>
-        <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="revenue_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Rev_Modal" alt="Quarterly Revenue"/>
+        <canvas id="revenue_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Rev_Modal" alt="Annual Revenue"></canvas>
+        <canvas id="revenue_quarterly" type="button" data-bs-toggle="modal" data-bs-target="#Qua_Rev_Modal" alt="Quarterly Revenue" class="d-none"></canvas>
       </div>
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.net_income_annual_graph|safe }}" id="netincome_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_NetIncome_Modal" alt="Net Income Annual"/>
-        <img src="data:image/png;base64, {{ overview.net_income_quarterly_graph|safe }}" id="netincome_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_NetIncome_Modal" alt="Net Income Quarterly"/>  
+        <canvas id="netincome_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_NetIncome_Modal" alt="Net Income Annual"></canvas>
+        <canvas id="netincome_quarterly" type="button"  data-bs-toggle="modal" data-bs-target="#Qua_NetIncome_Modal" alt="Net Income Quarterly" class="d-none"></canvas>  
       </div>
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.earnings_annual_graph|safe }}" id="earnings_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Earnings_Modal" alt="Earnings Annual"/>
-        <img src="data:image/png;base64, {{ overview.earnings_quarterly_graph|safe }}" id="earnings_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Earnings_Modal" alt="Earnings Quarterly"/>  
-      </div>    
-    </div>
-
-    <div class="row">
+        <canvas id="earnings_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Earnings_Modal" alt="Earnings Annual"></canvas>
+        <canvas id="earnings_quarterly" type="button"  data-bs-toggle="modal" data-bs-target="#Qua_Earnings_Modal" alt="Earnings Quarterly" class="d-none"></canvas>  
+      </div> 
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.assets_liabilities_annual_graph|safe }}" id="assets_liabilities_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_AssLia_Modal" alt="Annual Assets Liabilities"/>
-        <img src="data:image/png;base64, {{ overview.assets_liabilities_quarterly_graph|safe }}" id="assets_liabilities_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_AssLia_Modal" alt="Quarterly Assets Liabilities"/>
+        <canvas id="assets_liabilities_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_AssLia_Modal" alt="Annual Assets Liabilities"></canvas>
+        <canvas id="assets_liabilities_quarterly" type="button" data-bs-toggle="modal" data-bs-target="#Qua_AssLia_Modal" alt="Quarterly Assets Liabilities" class="d-none"></canvas>
       </div>
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}" id="debt_to_cash_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_DebtCash_Modal" alt="Debt to Cash Annual"/>
-        <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="debt_to_cash_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_DebtCash_Modal" alt="Debt to Cash Quarterly"/>  
-      </div>
+        <canvas id="debt_to_cash_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_DebtCash_Modal" alt="Debt to Cash Annual"></canvas>
+        <canvas id="debt_to_cash_quarterly" type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#Qua_DebtCash_Modal" alt="Debt to Cash Quarterly"></canvas>
+      </div>  
       <div class="square">
-        <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="prices_annual" type="button" class="img-fluid" data-bs-toggle="modal" data-bs-target="#Ann_Prices_Modal" alt="Prices 1y"/>
-        <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="prices_quarterly" type="button" class="img-fluid d-none" data-bs-toggle="modal" data-bs-target="#Qua_Prices_Modal" alt="Prices 90days"/>
-      </div>   
+        <canvas id="prices_annual" type="button" data-bs-toggle="modal" data-bs-target="#Ann_Prices_Modal" alt="Prices 1y"></canvas>
+        <canvas id="prices_quarterly" type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#Qua_Prices_Modal" alt="Prices 90days"></canvas>
+      </div>  
     </div>
 
     <div class="row" style="text-align: justify; padding: 30px;">
@@ -146,11 +152,11 @@ Ticker
 
 
   <!-- Modals -->
-  <div class="modal fade" id="Ann_Rev_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+  <div class="modal fade" id="Ann_Rev_Modal" tabindex="-1" aria-labelledby="Modal-Revenue-Annual" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Revenue</h5>
+          <h5 class="modal-title" id="ModalLabelRevenueAnnual">Revenue</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -158,8 +164,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="1" data-image-1-id="image1-1" data-image-2-id="image2-1">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}"  id="image1-1" class="img-fluid" alt="Annual Revenue"/>
-            <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="image2-1" class="img-fluid d-none" alt="Quarterly Revenue"/>
+            <canvas id="image1-1" alt="Annual Revenue"></canvas>
+            <canvas id="image2-1" alt="Quarterly Revenue" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -169,11 +175,11 @@ Ticker
     </div>
   </div>
 
-  <div class="modal fade" id="Qua_Rev_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+  <div class="modal fade" id="Qua_Rev_Modal" tabindex="-1" aria-labelledby="Modal-Revenue-Quarterly" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Revenue</h5>
+          <h5 class="modal-title" id="ModalLabelRevenueQuarterly">Revenue</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -181,8 +187,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="2" data-image-1-id="image1-2" data-image-2-id="image2-2">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.revenue_quarterly_graph|safe }}" id="image1-2" class="img-fluid" alt="Quarterly Revenue"/>
-          <img src="data:image/png;base64, {{ overview.revenue_annual_graph|safe }}" id="image2-2" class="img-fluid d-none" alt="Annual Revenue"/>
+            <canvas id="image1-2" alt="Quarterly Revenue"></canvas>
+            <canvas id="image2-2" alt="Annual Revenue" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -193,7 +199,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_NetIncome_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Net Income</h5>
@@ -204,8 +210,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="3" data-image-1-id="image1-3" data-image-2-id="image2-3">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.net_income_annual_graph|safe }}"  id="image1-3" class="img-fluid" alt="Annual Net Income"/>
-            <img src="data:image/png;base64, {{ overview.net_income_quarterly_graph|safe }}" id="image2-3" class="img-fluid d-none" alt="Quarterly Net Income"/>
+            <canvas id="image1-3" alt="Annual Net Income"></canvas>
+            <canvas id="image2-3" alt="Quarterly Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -216,7 +222,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_NetIncome_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Net Income</h5>
@@ -227,8 +233,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="4" data-image-1-id="image1-4" data-image-2-id="image2-4">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.net_income_quarterly_graph|safe }}" id="image1-4" class="img-fluid" alt="Annual Net Income"/>
-          <img src="data:image/png;base64, {{ overview.net_income_annual_graph|safe }}" id="image2-4" class="img-fluid d-none" alt="Quarterly Net Income"/>
+          <canvas id="image1-4" alt="Quarterly Net Income"></canvas>
+          <canvas id="image2-4" alt="Annual Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -239,7 +245,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_Earnings_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Earnings</h5>
@@ -250,8 +256,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="5" data-image-1-id="image1-5" data-image-2-id="image2-5">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.earnings_annual_graph|safe }}"  id="image1-5" class="img-fluid" alt="Annual Net Income"/>
-            <img src="data:image/png;base64, {{ overview.earnings_quarterly_graph|safe }}" id="image2-5" class="img-fluid d-none" alt="Quarterly Net Income"/>
+            <canvas  id="image1-5" alt="Annual Net Income"></canvas>
+            <canvas id="image2-5" alt="Quarterly Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -262,7 +268,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_Earnings_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Earnings</h5>
@@ -273,8 +279,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="6" data-image-1-id="image1-6" data-image-2-id="image2-6">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.earnings_quarterly_graph|safe }}" id="image1-6" class="img-fluid" alt="Annual Net Income"/>
-          <img src="data:image/png;base64, {{ overview.earnings_annual_graph|safe }}" id="image2-6" class="img-fluid d-none" alt="Quarterly Net Income"/>
+          <canvas id="image1-6" alt="Annual Net Income"></canvas>
+          <canvas id="image2-6" alt="Quarterly Net Income" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -285,7 +291,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_AssLia_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Assets and Liabilities</h5>
@@ -296,8 +302,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="7" data-image-1-id="image1-7" data-image-2-id="image2-7">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.assets_liabilities_annual_graph|safe }}"  id="image1-7" class="img-fluid" alt="Annual Assets and Liabilities"/>
-            <img src="data:image/png;base64, {{ overview.assets_liabilities_quarterly_graph|safe }}" id="image2-7" class="img-fluid d-none" alt="Quarterly Assets and Liabilities"/>
+            <canvas id="image1-7" alt="Annual Assets and Liabilities"></canvas>
+            <canvas id="image2-7" alt="Quarterly Assets and Liabilities" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -308,7 +314,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_AssLia_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Assets and Liabilities</h5>
@@ -319,8 +325,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="8" data-image-1-id="image1-8" data-image-2-id="image2-8">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.assets_liabilities_quarterly_graph|safe }}" id="image1-8" class="img-fluid" alt="Quarterly Net Income"/>
-          <img src="data:image/png;base64, {{ overview.assets_liabilities_annual_graph|safe }}" id="image2-8" class="img-fluid d-none" alt="Annual Net Income"/>
+            <canvas id="image1-8" alt="Quarterly Assets and Liabilities"></canvas>
+            <canvas id="image2-8" alt="Annual Assets and Liabilities" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -331,7 +337,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_DebtCash_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Debt to Cash</h5>
@@ -342,8 +348,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="9" data-image-1-id="image1-9" data-image-2-id="image2-9">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}"  id="image1-9" class="img-fluid" alt="Annual Debt to Cash"/>
-            <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="image2-9" class="img-fluid d-none" alt="Quarterly Debt to Cash"/>
+            <canvas id="image1-9" alt="Annual Debt to Cash"></canvas>
+            <canvas id="image2-9" alt="Quarterly Debt to Cash" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -354,7 +360,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_DebtCash_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Debt to Cash</h5>
@@ -365,8 +371,8 @@ Ticker
             <button type="button" class="btn btn-info btn-sml switch-button-modal" data-button-id="10" data-image-1-id="image1-10" data-image-2-id="image2-10">Annual/Quarterly</button>
           </div>
           <div class="d-flex justify-content-center">
-          <img src="data:image/png;base64, {{ overview.debt_to_cash_quarterly_graph|safe }}" id="image1-10" class="img-fluid" alt="Quarterly Debt to Cash"/>
-          <img src="data:image/png;base64, {{ overview.debt_to_cash_annual_graph|safe }}" id="image2-10" class="img-fluid d-none" alt="Annual Debt to Cash"/>
+          <canvas id="image1-10" alt="Quarterly Debt to Cash"></canvas>
+          <canvas id="image2-10" alt="Annual Debt to Cash" class="d-none"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -377,7 +383,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Ann_Prices_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Price Series</h5>
@@ -393,10 +399,10 @@ Ticker
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.price_graph1255|safe }}" id="A_prices_1255" class="img-fluid image-toggle1" alt="Prices 5y" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="A_prices_251" class="img-fluid image-toggle1" alt="Prices 1y"/>
-            <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="A_prices_90" class="img-fluid image-toggle1" alt="Prices 90days" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph30|safe }}" id="A_prices_30" class="img-fluid image-toggle1" alt="Prices 30days" style="display:none;"/>
+            <canvas id="A_prices_1255" class="image-toggle1" alt="Prices 5y" style="display:none;"></canvas>
+            <canvas id="A_prices_251" class="image-toggle1" alt="Prices 1y"></canvas>
+            <canvas id="A_prices_90" class="image-toggle1" alt="Prices 90days" style="display:none;"></canvas>
+            <canvas id="A_prices_30" class="image-toggle1" alt="Prices 30days" style="display:none;"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -407,7 +413,7 @@ Ticker
   </div>
 
   <div class="modal fade" id="Qua_Prices_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Price Series</h5>
@@ -423,10 +429,10 @@ Ticker
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <img src="data:image/png;base64, {{ overview.price_graph1255|safe }}" id="B_prices_1255" class="img-fluid image-toggle2" alt="Prices 5y" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph251|safe }}" id="B_prices_251" class="img-fluid image-toggle2" alt="Prices 1y" style="display:none;"/>
-            <img src="data:image/png;base64, {{ overview.price_graph90|safe }}" id="B_prices_90" class="img-fluid image-toggle2" alt="Prices 90days"/>
-            <img src="data:image/png;base64, {{ overview.price_graph30|safe }}" id="B_prices_30" class="img-fluid image-toggle2" alt="Prices 30days" style="display:none;"/>
+            <canvas id="B_prices_1255" class="image-toggle2" alt="Prices 5y" style="display:none;"></canvas>
+            <canvas id="B_prices_251" class="image-toggle2" alt="Prices 1y" style="display:none;"></canvas>
+            <canvas id="B_prices_90" class="image-toggle2" alt="Prices 90days"></canvas>
+            <canvas id="B_prices_30" class="image-toggle2" alt="Prices 30days" style="display:none;"></canvas>
           </div>
         </div>
         <div class="modal-footer">
@@ -435,5 +441,5 @@ Ticker
       </div>
     </div>
   </div>
-    
+
 {% endblock %}
