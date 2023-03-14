@@ -10,7 +10,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.RemoveField(
+            model_name="indexdata",
+            name="data"
+        ),
+        migrations.AddField(
             model_name="indexdata",
             name="data",
             field=models.JSONField(null=True),
