@@ -1,51 +1,5 @@
-@media only screen and (max-width: 1200px) {
-    #firstRow {
-        min-width: 200px !important;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .background {
-      background-image:  url("/static/visualizer/ticker_background.webp");
-    }
-    
-    video {
-     display: none;
-    }
-
-    #myTabContent {
-        height: 700px !important;
-    }
-
-    .square-bg {
-        max-width: 100% !important;
-    }
-
-    .square {
-        max-height: 250px !important;
-        max-width: 100% !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .navbar-brand.abs
-        {
-            position: absolute;
-            width: auto;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-}
-
-@media (max-width: 300px) {
-    #myTabContent {height: 800px;}
-}
-
-
 body {
     background-image: url("/static/visualizer/ticker_background.webp");
-    padding-bottom: 70px;
     background-size: cover;
     padding-right: 0 !important; /* To fix shifting background site content when opening modal */
     background-repeat: no-repeat;
@@ -94,9 +48,8 @@ img, ::after, ::before {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
+    height: 50%;
     text-align: center;
-    position: relative;
     z-index: 10;
 }
 
@@ -130,23 +83,18 @@ img, ::after, ::before {
 }
 
 .video-container {
-    height: 50vh;
+    height: calc(100vh - 56px);
     position: relative;
     overflow: hidden;
-    @media(min-width: 600px) {
-      height: 100vh;
-    }
 }
   
 video {
-    position: fixed;
+    position: absolute;
     right: 0; 
     bottom: 0;
     min-width: 100%; 
     min-height: 100%;
-    width: auto; 
-    height: auto;
-    z-index: -100;
+    object-fit: cover;
 }
 
 .intro-text {
@@ -164,7 +112,7 @@ h5 {
 
 #progressMessage {
    position:absolute;
-   top:45%;
+   top:20%;
    height: 40%;
    left:25%;
    width:50%;
@@ -233,4 +181,48 @@ h5 {
 
 #myTabContent {
     height: 500px;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand.abs
+        {
+            position: absolute;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+}
+
+@media only screen and (max-width: 1200px) {
+    #firstRow {
+        min-width: 200px !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .background {
+      background-image:  url("/static/visualizer/ticker_background.webp");
+    }
+    
+    video {
+     display: none;
+    }
+
+    #myTabContent {
+        height: 700px !important;
+    }
+
+    .square-bg {
+        max-width: 100% !important;
+    }
+
+    .square {
+        max-height: 250px !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 300px) {
+    #myTabContent {height: 800px;}
 }

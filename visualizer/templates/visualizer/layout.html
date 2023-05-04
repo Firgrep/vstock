@@ -39,6 +39,7 @@
         </div>
       </nav>
 
+
     <div class="body-content" style="height: 100%">
       {% block content %}
       {% endblock %}
@@ -60,7 +61,7 @@
               <img class="img-fluid" src="{% static 'visualizer/update_example.webp' %}" style="border-radius: 0px;"/>
             </li>
             <li>Massive performance boost by changing how charts load.</li>
-            <li>Improved responsiveness for smaller devices.</li>
+            <li>Improved responsiveness for smaller devices (though some new issues have surfaced on the smaller screens).</li>
             <li>Offcanvas side panels like this one! Minimizes the use of loading new pages.</li>
           </ul>
         </div>
@@ -160,7 +161,16 @@
       {
         $("#progressMessageLbl").html("Searching database, retrieving new data if needed... Please wait.");
         $("#progressMessage").show();
+        sessionStorage.setItem('pageLoaded', 'true');
       }
+
+      window.addEventListener('unload', function(event) {
+        hideProgressMessage();
+      });
+
+      function hideProgressMessage() {
+        $("#progressMessage").addClass("d-none");
+      };
 
     </script>
 

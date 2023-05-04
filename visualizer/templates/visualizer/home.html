@@ -9,12 +9,6 @@ Home
       <source src="{% static 'visualizer/background_vid.mp4' %}" type="video/mp4">Video not supported
     </video>
 
-    <div id="progressMessage" style="display:none; padding:5px; border:1px Solid #000">
-      <div id="activityIndicator">&nbsp;</div>
-      <label style="font:bold; display:block; padding:5px; text-align: centre;"
-           id="progressMessageLbl"></label>
-    </div> <!-- Thanks to Yashika Garg from StackOverflow for the loading wheel code! -->
-
     <div class="intro-content">
       <div class="intro-text">
         <h1>vStock</h1>
@@ -27,6 +21,12 @@ Home
         <input type="submit" value="Submit" onclick="showProgressCursor();" autofocus>
       </form>
     </div>
+
+    <div id="progressMessage" style="display: none; padding:5px; border:1px Solid #000">
+      <div id="activityIndicator">&nbsp;</div>
+      <label style="font:bold; display:block; padding:5px; text-align: centre;"
+           id="progressMessageLbl"></label>
+    </div> <!-- Thanks to Yashika Garg from StackOverflow for the loading wheel code! -->
 
   </section>
   
