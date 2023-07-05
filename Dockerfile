@@ -20,4 +20,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8080
 
 # Set the command to run your Django app using gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "vstock.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "v_stock.wsgi:application"]
