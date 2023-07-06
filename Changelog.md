@@ -1,5 +1,8 @@
 # CHANGELOG
 
+2.2
+- Reworked settings for dockerizing and new hosting platform.
+
 2.1 
 - Fixed progress loading bar to vanish properly when the next page loads.
 - Fixed CCS on main page.
