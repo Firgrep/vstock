@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 v_stock.wsgi:application
+web: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 vstock.wsgi:application
