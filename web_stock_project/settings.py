@@ -85,13 +85,17 @@ WSGI_APPLICATION = "web_stock_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 if PROD: 
+    DB_NAME = os.environ.get('DATABASE_NAME')
+    DB_USER = os.environ.get('DATABASE_USER')
+    DB_PASS = os.environ.get('DATABASE_PASSWORD')
+    DB_HOST = os.environ.get('DATABASE_HOST')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DATABASE_NAME'),
-            'USER': os.environ.get('DATABASE_USER'),
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-            'HOST': os.environ.get('DATABASE_HOST'),
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASS,
+            'HOST': DB_HOST,
         }
     }
 else:
