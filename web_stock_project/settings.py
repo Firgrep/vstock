@@ -26,7 +26,15 @@ SECRET_KEY = os.environ.get('VSTOCK_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
-ALLOWED_HOSTS = ["vstock-4ucsxzaybq-nw.a.run.app"]
+PROD = (os.environ.get('PROD') == 'False')
+
+if PROD:
+    ALLOWED_HOSTS = ["vstock-4ucsxzaybq-nw.a.run.app"]
+    CSRF_TRUSTED_ORIGINS = ["vstock-4ucsxzaybq-nw.a.run.app"]
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+else:
+    ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
