@@ -23,6 +23,7 @@
 
 ## Future improvements / TO DO:
 
+- Fix db problems. 
 - Add documentation using JSDoc. 
 - More graphs. Perhaps a radar graph that collates all the data and displays the "health" of a company?
 - Refactoring possibilites: the code could be improved for readability, a number of arguments used in functions could be streamlined as easy-to-access-and-alter variables put at the top of the file. Additionally, the graph functions could be nested as methods a class structure, making the ticker data itself a particular object and then stored as this. One would have to check what is the best solution regarding the figures produced in this case, as currently the figures are produced as .svg simply overwrite the previous upon call. 
@@ -30,6 +31,5 @@
 
 ## Known bugs:
 
-- The loading pop-up does not close after the new page is loaded, which means it stays there when the user hits back.
 - There is a chance that the API provider may return an empty dictionary, which is something the app is not currently programmed to handle and will therefore crash. I noticed this was particularly frequent with non-U.S. companies, hence why the app is currently limited just to those as the data is (assumed) to be complete. Nevertheless, this eventuality needs to be covered. In principle it is an easy fix (add a conditional to check whether dictionary is empty, and, if so, fabricate a default dictionary of zeroes so that the graphs can be produced), but will likely have structural rammifications as to how the rest of the module behaves. 
 - Some Aria labels need to be corrected.

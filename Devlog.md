@@ -1,6 +1,11 @@
 # DEVLOG
 Educational notes to self from the project.
 
+* External database not working properly, app is unable to find symbol in db. Either an issue with permissions (but I'm getting no errors anywher on this), with database parsing (characters not being properly transferable), with the build order and migrations. I've attemped to drop the db and make a new one, but the error persists. I've attempted to go into postgres on the hosting site and while it does appear that the db is populated, I'm unable to see any relations inside of it (this may be due to lack of permissions, but I'm entering as an admin??). Temporary solution is to use the local SQLite db within the container - not ideal.
+
+    - The above exception (relation "visualizer_stockdata" does not exist
+    LINE 1: SELECT "visualizer_stockdata"."symbol" FROM "visualizer_stoc...
+
 * JavaScript file was not executing in the HTML template.
     - Cause: href attribute was used instead of src.
     - Fix: switched to proper src and the script executed as inteded.
