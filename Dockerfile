@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p /app/staticfiles
 COPY . .
 
+# Add a print statement to check the environment variables
+RUN echo "DB_HOST: $DATABASE_HOST, DB_PASS: $DATABASE_PASSWORD, DB_NAME: $DATABASE_NAME, DB_USER: $DATABASE_USER"
+
 # Run the initial Django commands
 RUN python manage.py makemigrations
 RUN python manage.py migrate
