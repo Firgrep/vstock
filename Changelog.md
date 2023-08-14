@@ -1,5 +1,10 @@
 # CHANGELOG
 
+2.3
+- Added new database (Supabase).
+- Fixed bug due to change in AlphaVantage's API where Price Series Adjusted was locked behind Premium. Switched to regular Price Series.
+- Updated Readme (added Quickstart).
+
 2.2
 - Reworked settings for dockerizing and new hosting platform.
 

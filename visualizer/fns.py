@@ -73,7 +73,7 @@ def process_data(entry):
     # -  PRICE SERIES VARIABLES
     dates_and_price = {}
     for i in price_series:
-        dates_and_price[i] = price_series[i]['5. adjusted close']
+        dates_and_price[i] = price_series[i]['4. close']
 
     prices_str = []
     price_dates = []

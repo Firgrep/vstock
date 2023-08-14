@@ -7,7 +7,7 @@ def get_stock_data(ticker): # Ticker symbol, or tid, gets passed in here.
     ticker = ticker.upper()
     stock_data = {}
 
-    price_series = requests.get(f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={ticker}&apikey={APIKEY}&outputsize=full').json()
+    price_series = requests.get(f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={APIKEY}&outputsize=full').json()
     if "Error Message" in price_series:
         invalid_api = "invalid_api"
         return invalid_api
