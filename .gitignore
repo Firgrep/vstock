@@ -161,3 +161,4 @@ cython_debug/
 
 static_collected/
 notes.txt
+cloudbuild.yml
