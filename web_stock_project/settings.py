@@ -29,8 +29,8 @@ DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 PROD = (os.environ.get('PROD') == 'True')
 
 if PROD:
-    ALLOWED_HOSTS = ["https://vstock-4ucsxzaybq-nw.a.run.app"]
-    CSRF_TRUSTED_ORIGINS = ["https://vstock-4ucsxzaybq-nw.a.run.app"]
+    ALLOWED_HOSTS = ["vstock-4ucsxzaybq-nw.a.run.app"]
+    CSRF_TRUSTED_ORIGINS = ["vstock-4ucsxzaybq-nw.a.run.app"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 else:
